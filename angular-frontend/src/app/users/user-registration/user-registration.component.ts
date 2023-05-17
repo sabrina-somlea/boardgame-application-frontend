@@ -4,11 +4,13 @@ import {PasswordValidator} from "./password.validator";
 import {User} from "../users.model";
 import {UsersService} from "../users.service";
 import {dateValidator} from "./date-picker.validation";
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  styleUrls: ['./user-registration.component.css'],
 })
 
 
@@ -44,7 +46,7 @@ export class UserRegistrationComponent {
   title = 'Registration';
 
   // registrationForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private usersService: UsersService) {
+  constructor(private fb: FormBuilder, private usersService: UsersService, private http: HttpClient) {
   }
 
   registrationForm = this.fb.group({
@@ -54,7 +56,7 @@ export class UserRegistrationComponent {
     birthday: ['', [Validators.required, dateValidator()]],
     gender: ['', Validators.required, ],
     email: ['', [Validators.required, Validators.email]],
-    username: ['', [Validators.required, Validators.pattern(this.userPattern), Validators.maxLength(50)]],
+    username: ['', [Validators.required, Validators.pattern(this.userPattern), Validators.maxLength(50)], [this.usersService.usernameValidator()] ],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required]
 

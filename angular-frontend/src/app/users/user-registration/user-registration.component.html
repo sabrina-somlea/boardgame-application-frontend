@@ -62,7 +62,9 @@
       <div *ngIf ="username?.invalid && username?.touched">
         <small *ngIf="username?.errors?.['required']" class ="text-danger"> Username is required</small>
         <small *ngIf="username?.errors?.['pattern']" class ="text-danger"> {{username?.errors?.['pattern'].value}} Username cannot contain special characters</small>
-    </div>
+<!--        <small *ngIf="username?.errors?.['usernameTaken']"class ="text-danger"> {{username?.errors?.['usernameTaken']}}</small>-->
+        <small *ngIf="username?.errors?.['usernameExists']"class ="text-danger"> exista deja</small>
+      </div>
     </div>
     <div class="form-group">
       <label>Password</label>
