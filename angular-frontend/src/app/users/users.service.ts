@@ -9,7 +9,7 @@ import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/form
 })
 export class UsersService {
 
-  private userUrl = "http://localhost:8080/users"
+  private userUrl = "http://localhost:8080/api/v1/auth/register"
   constructor(private httpClient:HttpClient) { }
   getUsers(): Observable<User[]>{
     return this.httpClient
@@ -35,7 +35,7 @@ export class UsersService {
   };
 
   checkIfUsernameExists (username:string) :  Observable<boolean>{
-    const url= `http://localhost:8080/check-username?username=${username}`;
+    const url= `http://localhost:8080/api/v1/check-username?username=${username}`;
     // const params = new HttpParams().set('username', username);
     return this.httpClient.get<boolean>(url);
   }
