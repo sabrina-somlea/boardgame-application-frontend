@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { UserLoginComponent } from './users/user-login/user-login.component';
 
 
 
@@ -25,6 +26,7 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     UsersComponent,
     UsersListComponent,
     UserRegistrationComponent,
+    UserLoginComponent,
   ],
   imports: [
     BrowserModule,

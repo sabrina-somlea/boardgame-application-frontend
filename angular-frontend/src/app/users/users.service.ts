@@ -10,7 +10,11 @@ import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/form
 export class UsersService {
 
   private userUrl = "http://localhost:8080/api/v1/auth/register"
+  private welcomePage = "http://localhost:8080/api/v1/welcome"
+  private userLoginUrl = "http://localhost:8080/api/v1/auth/authenticate"
   constructor(private httpClient:HttpClient) { }
+
+
   getUsers(): Observable<User[]>{
     return this.httpClient
       .get<Array<User>>(this.userUrl);
@@ -52,6 +56,11 @@ export class UsersService {
         })
       );
     };
+  }
+
+  getWelcomeMessage():Observable<any>{
+    return this.httpClient
+      .get(this.welcomePage, { responseType: 'text' });
   }
 }
 
