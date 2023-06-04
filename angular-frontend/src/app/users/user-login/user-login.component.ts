@@ -5,6 +5,7 @@ import {UsersService} from "../users.service";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
 import { TokenStorageService } from '../token-storage.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-login',
@@ -23,7 +24,7 @@ export class UserLoginComponent {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) {
   }
 
   ngOnInit(): void {
@@ -56,7 +57,8 @@ export class UserLoginComponent {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.reloadPage();
+        // this.reloadPage();
+        this.router.navigate(['/dashboard']);
       },
       err => {
         this.errorMessage = err.error.message;
@@ -68,5 +70,15 @@ export class UserLoginComponent {
   reloadPage(): void {
     window.location.reload();
   }
+
+  public logout(){
+    this.tokenStorage.signOut();
+    // this.router.navigate(['/']);
+    this.reloadPage();
+  }
+
+  addNewUser(){
+  this.router.navigate(['/user-registration']);
+   }
 }
 

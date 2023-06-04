@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
-import {RouterOutlet} from "@angular/router";
+import {RouterOutlet, Routes} from "@angular/router";
 import { UsersListComponent } from './users/users-list/users-list.component';
 import {UsersService} from "./users/users.service";
 import {AppRoutingModule} from "./app-routing.module";
@@ -16,8 +16,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import { UserLoginComponent } from './users/user-login/user-login.component';
-
-
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 
 @NgModule({
@@ -27,6 +28,8 @@ import { UserLoginComponent } from './users/user-login/user-login.component';
     UsersListComponent,
     UserRegistrationComponent,
     UserLoginComponent,
+    HeaderComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { UserLoginComponent } from './users/user-login/user-login.component';
     MatInputModule,
     MatDatepickerModule,
    MatNativeDateModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

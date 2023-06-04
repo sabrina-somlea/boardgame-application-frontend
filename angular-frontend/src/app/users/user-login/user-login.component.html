@@ -50,13 +50,17 @@
         <label for="check"> Remember Me</label>
       </div>
       <div class="two">
-        <label><a href="#">Forgot password?</a></label>
+        <label><a routerLink="/user-registration">Not a member yet? Please sign up</a></label>
+<!--        addNewUser(){-->
+<!--        this.router.navigate(['user-registration']);-->
+<!--        }-->
       </div>
     </div>
 
   </div>
   </form>
   <div class="alert alert-success" *ngIf="isLoggedIn">Logged in succesufully</div>
+  <button *ngIf="isLoggedIn" mat-raised-button color="accent" (click)="logout()">Log Out</button>
 </div>
 </body>
 
