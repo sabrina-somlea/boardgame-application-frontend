@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
 import {PasswordValidator} from "./password.validator";
-import {User} from "../users.model";
-import {UsersService} from "../users.service";
+import {User} from "../../models/users.model";
+import {UsersService} from "../../services/users.service";
 import {dateValidator} from "./date-picker.validation";
 import {HttpClient} from "@angular/common/http";
 

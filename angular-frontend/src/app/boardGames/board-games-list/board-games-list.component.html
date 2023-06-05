@@ -1,0 +1,26 @@
+<app-header></app-header>
+<div>
+  <a [routerLink]="['/boardgames/add']" class="button is-primary is-light">Add a game</a>
+<table class="table is-hoverable is-bordered">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Year Published</th>
+    <th>Minimum Players</th>
+    <th>Maximum Players</th>
+    <th>Minimum Play time</th>
+    <th>Maximum Play time</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let boardgames of boardGames">
+    <td>{{boardgames.name}}</td>
+    <td>{{boardgames.description}}</td>
+    <td>{{boardgames.yearPublished}}</td>
+    <td>{{boardgames.minPlayers}}</td>
+    <td>{{boardgames.maxPlayers}}</td>
+    <td>{{boardgames.minPlayTime}}</td>
+    <td>{{boardgames.maxPlayTime}}</td>
+  </tr>
+</table>
+</div>

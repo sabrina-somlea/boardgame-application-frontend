@@ -1,0 +1,79 @@
+<form (submit)="addBoardGame()">
+  <div class="field">
+    <input class="input" type="text" style="width: 15%;"
+           [(ngModel)]="boardGame.name"
+           name="Name"
+           placeholder="Name"
+
+    />
+  </div>
+  <div class="field">
+    <label class="label">Description: </label>
+    <input class="input"
+           type="text" style="width: 15%;"
+           [(ngModel)]="boardGame.description"
+           name="description"
+           placeholder="description"
+    />
+  </div>
+
+  <div class="field">
+    <label>Year Published:</label>
+    <input class="input"
+           type="number" style="width: 15%;"
+           [(ngModel)]="boardGame.yearPublished"
+           placeholder="Year Published"
+           name="Year Published"
+    />
+  </div>
+
+  <div class="field">
+    <label>Minimum Players:</label>
+    <input class="input"
+           type="text" style="width: 15%;"
+           [(ngModel)]="boardGame.minPlayers"
+           placeholder="Minimum Players"
+           name="Minimum Players"
+    />
+  </div>
+
+  <div class="field">
+    <label>Maximum Players: </label>
+    <input class="input"
+           type="text" style="width: 15%;"
+           [(ngModel)]="boardGame.maxPlayers"
+           name="Maximum Players"
+           placeholder="Maximum Players"
+    />
+  </div>
+
+  <div class="field">
+    <label>Minimum Play time: </label>
+    <input class="input"
+           type="number" style="width: 15%;"
+           [(ngModel)]="boardGame.minPlayTime"
+           name="Minimum Play time:"
+           placeholder="Minimum Play time:"
+    />
+  </div>
+
+  <div class="field">
+    <label>Maximum Play time: </label>
+    <input class="input"
+           type="text" style="width: 15%;"
+           [(ngModel)]="boardGame.maxPlayTime"
+           name="Maximum Play time"
+           placeholder="Maximum Play time"
+    />
+  </div>
+  <div class="button-container">
+    <div>
+      <button class="button is-primary is-light" type="submit">Add</button>
+    </div>
+
+    <div>
+      <button (click)="cancel()" class="button reset">Cancel, go back</button>
+    </div>
+  </div>
+</form>
+

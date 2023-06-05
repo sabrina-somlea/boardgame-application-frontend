@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {debounceTime, delay, map, Observable, of} from "rxjs";
-import {User} from "./users.model";
+import {User} from "../models/users.model";
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/forms";
 
 @Injectable({

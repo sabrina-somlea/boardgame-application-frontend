@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {dateValidator} from "../user-registration/date-picker.validation";
-import {UsersService} from "../users.service";
+import {UsersService} from "../../services/users.service";
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../auth.service";
-import { TokenStorageService } from '../token-storage.service';
+import {AuthService} from "../../services/auth.service";
+import { TokenStorageService } from '../../services/token-storage.service';
 import {Router} from "@angular/router";
 
 @Component({
@@ -26,12 +26,12 @@ export class UserLoginComponent {
   errorMessage = '';
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) {
   }
-
-  ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-    }
-  }
+  //
+  // ngOnInit(): void {
+  //   if (this.tokenStorage.getToken()) {
+  //     this.isLoggedIn = true;
+  //   }
+  // }
 
 
   loginUser(){
@@ -52,11 +52,13 @@ export class UserLoginComponent {
 
     this.authService.loginUser(username, password).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
+        console.log(data.token)
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        console.log(data.accessToken)
         // this.reloadPage();
         this.router.navigate(['/dashboard']);
       },
