@@ -1,26 +1,97 @@
+
 <app-header></app-header>
+
 <div>
   <a [routerLink]="['/boardgames/add']" class="button is-primary is-light">Add a game</a>
-<table class="table is-hoverable is-bordered">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Year Published</th>
-    <th>Minimum Players</th>
-    <th>Maximum Players</th>
-    <th>Minimum Play time</th>
-    <th>Maximum Play time</th>
-  </tr>
-  </thead>
-  <tr *ngFor="let boardgames of boardGames">
-    <td>{{boardgames.name}}</td>
-    <td>{{boardgames.description}}</td>
-    <td>{{boardgames.yearPublished}}</td>
-    <td>{{boardgames.minPlayers}}</td>
-    <td>{{boardgames.maxPlayers}}</td>
-    <td>{{boardgames.minPlayTime}}</td>
-    <td>{{boardgames.maxPlayTime}}</td>
-  </tr>
-</table>
+  <div>
+    <app-board-games-search></app-board-games-search>
+  </div>
+
+  <div *ngIf="showGamesList">
+    <table class="table is-hoverable is-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Year Published</th>
+        <th>Minimum Players</th>
+        <th>Maximum Players</th>
+        <th>Minimum Play time</th>
+        <th>Maximum Play time</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let boardgame of boardGames">
+        <td>{{boardgame.name}}</td>
+        <td [innerHtml]="boardgame.description"></td>
+        <td>{{boardgame.year_published}}</td>
+        <td>{{boardgame.min_players}}</td>
+        <td>{{boardgame.max_players}}</td>
+        <td>{{boardgame.min_playtime}}</td>
+        <td>{{boardgame.max_playtime}}</td>
+        <td>
+          <div class="buttons">
+            <button class="button is-info is-small" (click)="startUpdate(boardgame)">Edit</button>
+            <button class="button is-danger is-small" (click)="startDelete(boardgame)">Delete</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!showGamesList && searchResults && searchResults.length > 0">
+    <h2>{{noResultsMessage}}</h2>
+    <table>
+
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Year Published</th>
+        <th>Minimum Players</th>
+        <th>Maximum Players</th>
+        <th>Minimum Play time</th>
+        <th>Maximum Play time</th>
+        <th>Actions</th>
+      </tr>
+      <tbody>
+      <tr *ngFor="let result of searchResults">
+        <td>{{result.name}}</td>
+        <td [innerHtml]="result.description"></td>
+        <td>{{result.year_published}}</td>
+        <td>{{result.min_players}}</td>
+        <td>{{result.max_players}}</td>
+        <td>{{result.min_playtime}}</td>
+        <td>{{result.max_playtime}}</td>
+        <td>
+          <div class="buttons">
+            <button class="button is-info is-small" (click)="addGameToCollection(username,result)">Add game to collection</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!showGamesList && searchResults && searchResults.length === 0">
+    <h2>{{noResultsMessage}}</h2>
+  </div>
 </div>
+
+<div id="delete" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <p>Do you really want to remove the game from your collection?</p>
+      <div class ="buttons">
+        <button class ="button is-danger" (click)="confirmDelete()">Yes</button>
+        <button class ="button is-link" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
+  </div>
+</div>
+

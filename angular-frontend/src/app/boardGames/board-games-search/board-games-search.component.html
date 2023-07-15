@@ -1,0 +1,5 @@
+
+<div class="box has-text-centered">
+  <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="search(searchTerm)" />
+<button class="button is-small" (click)="search(searchTerm)">Search for a game</button>
+</div>

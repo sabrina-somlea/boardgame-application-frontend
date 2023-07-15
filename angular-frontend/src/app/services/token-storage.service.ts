@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -7,6 +8,10 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class TokenStorageService {
+
+  helper = new JwtHelperService();
+  username: string ="";
+  token:string ="";
   constructor() { }
 
   signOut(): void {
@@ -20,6 +25,7 @@ export class TokenStorageService {
   public saveToken(jwtToken: string) {
     localStorage.setItem('jwtToken', jwtToken);
     console.log('aici merge',jwtToken)
+    this.token = jwtToken;
   }
   // public getToken(): string | null {
   //   return window.sessionStorage.getItem(TOKEN_KEY);
@@ -27,6 +33,7 @@ export class TokenStorageService {
   public getToken(): string {
     // @ts-ignore
     return localStorage.getItem('jwtToken');
+
   }
 
   // public saveUser(user: any): void {
@@ -39,11 +46,18 @@ export class TokenStorageService {
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return {};
+    // const user = window.sessionStorage.getItem(USER_KEY);
+    // if (user) {
+    //   return JSON.parse(user);
+    // }
+    //
+    // return {};
+    const token = this.getToken();
+    console.log('token nedecodat ' +token)
+    const decodedToken = this.helper.decodeToken(token);
+    console.log('token decodat' + JSON.stringify(decodedToken))
+      this.username = decodedToken.sub;
+    console.log('username din token'+ this.username)
+    return this.username
   }
 }

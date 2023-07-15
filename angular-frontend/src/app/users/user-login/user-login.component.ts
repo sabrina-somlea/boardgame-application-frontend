@@ -24,6 +24,7 @@ export class UserLoginComponent {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  username:string="";
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) {
   }
   //

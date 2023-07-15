@@ -12,11 +12,11 @@ export class BoardGamesAddComponent {
   boardGame= {
     name: '',
     description: '',
-    yearPublished:0,
-    minPlayers: 0,
-    maxPlayers: 0,
-    minPlayTime: 0,
-    maxPlayTime: 0
+    year_published:0,
+    min_players: 0,
+    max_players: 0,
+    min_playtime: 0,
+    max_playtime: 0
   } as BoardGame;
   constructor(private boardGameService: BoardGamesService,
               private router: Router) { }

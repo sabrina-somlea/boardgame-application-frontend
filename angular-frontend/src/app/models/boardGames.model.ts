@@ -1,10 +1,12 @@
 export interface BoardGame{
+  id?:String,
   name: String;
   description: String;
-  yearPublished: number;
-  minPlayers: number;
-  maxPlayers: number;
-  minPlayTime: number;
-  maxPlayTime: number;
+  year_published: number;
+  min_players: number;
+  max_players: number;
+  min_playtime: number;
+  max_playtime: number;
+  username?: string
 
 }

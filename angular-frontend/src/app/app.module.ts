@@ -22,6 +22,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BoardGamesListComponent } from './boardGames/board-games-list/board-games-list.component'
 import {BoardGamesService} from "./services/boardGames.service";
 import { BoardGamesAddComponent } from './boardGames/board-games-add/board-games-add.component';
+import { BoardGamesSearchComponent } from './boardGames/board-games-search/board-games-search.component';
+import {JwtHelperService} from "@auth0/angular-jwt";
+import { BoardGamesUserCollectionComponent } from './boardGames/board-games-list/board-games-user-collection/board-games-user-collection.component';
 
 
 @NgModule({
@@ -35,6 +38,8 @@ import { BoardGamesAddComponent } from './boardGames/board-games-add/board-games
     DashboardComponent,
     BoardGamesListComponent,
     BoardGamesAddComponent,
+    BoardGamesSearchComponent,
+    BoardGamesUserCollectionComponent,
   ],
     imports: [
         BrowserModule,
@@ -48,7 +53,8 @@ import { BoardGamesAddComponent } from './boardGames/board-games-add/board-games
         MatNativeDateModule,
         NoopAnimationsModule,
         FontAwesomeModule,
-        FormsModule
+        FormsModule,
+
     ],
   providers: [UsersService, BoardGamesService],
   bootstrap: [AppComponent]
