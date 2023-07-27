@@ -1,0 +1,80 @@
+<app-header></app-header>
+<!--<div class="tile is-ancestor is-vertical">-->
+<!--  <div class="tile is-parent is-3" *ngFor="let friend of friendsList">-->
+<!--    <article class="tile is-child box">-->
+<!--      <p class="title is-5">{{ friend.firstName }}</p>-->
+<!--&lt;!&ndash;      <p class="title">test</p>&ndash;&gt;-->
+<!--      <p class="subtitle is-align-items-center">Subtitle</p>-->
+<!--    </article>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div class="box has-text-centered ">-->
+<!--  <p class="title is-5">You have {{ getTotalFriendsCount() }} friends</p>-->
+<!--  <p> search for a friend</p>-->
+<!--</div>-->
+
+<!--<div class="columns is-centered">-->
+<!--  <div class="column is-narrow">-->
+<!--    <div class="notification has-text-centered">-->
+<!--      <p class="is-size-5">You have {{ getTotalFriendsCount() }} friends</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="columns is-centered pb-6">
+  <div class="column is-narrow">
+    <div class="notification is-light has-text-centered">
+      <div *ngIf="!isSearching">
+      <p class="is-size-5">You have {{ getTotalFriendsCount() }} friends</p>
+      </div>
+      <br>
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input" type="text" [(ngModel)]="searchQuery" placeholder="Search for friends" />
+        </div>
+        <div class="control">
+          <button class="button is-primary" (click)="searchFriends(searchQuery)" >Search</button>
+          <div *ngIf="isSearching">
+            <br>
+          <button class="button is-warning" (click)="getFriendsList(username)" >Go back</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isSearching">
+<div class="tile is-ancestor is-justify-content-center">
+<div class="tile is-ancestor is-justify-content-center">
+  <div class="columns is-multiline ">
+    <div class="column is-3" *ngFor="let friendGroup of friendsList">
+<!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
+        <article class="tile is-child box">
+        <p class="title is-5">{{ friendGroup.firstName }}</p>
+        <p class="subtitle is-align-items-center">Subtitle</p>
+      </article>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div *ngIf="isSearching">
+  <div class="tile is-ancestor is-justify-content-center">
+    <div class="tile is-ancestor is-justify-content-center">
+      <div class="columns is-multiline ">
+        <div class="column is-6" *ngFor="let friendGroup of userList">
+          <!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
+          <article class="tile is-child box is-12">
+            <p class="title is-5">{{ friendGroup.firstName }}</p>
+            <p class="subtitle is-align-items-center">Subtitle</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

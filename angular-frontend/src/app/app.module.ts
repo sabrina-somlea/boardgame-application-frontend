@@ -25,6 +25,8 @@ import { BoardGamesAddComponent } from './boardGames/board-games-add/board-games
 import { BoardGamesSearchComponent } from './boardGames/board-games-search/board-games-search.component';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import { BoardGamesUserCollectionComponent } from './boardGames/board-games-list/board-games-user-collection/board-games-user-collection.component';
+import { FriendsListComponent } from './user-friends/friends-list/friends-list.component';
+import {UserFriendsService} from "./services/user-friends.service";
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { BoardGamesUserCollectionComponent } from './boardGames/board-games-list
     BoardGamesAddComponent,
     BoardGamesSearchComponent,
     BoardGamesUserCollectionComponent,
+    FriendsListComponent,
   ],
     imports: [
         BrowserModule,
@@ -56,7 +59,7 @@ import { BoardGamesUserCollectionComponent } from './boardGames/board-games-list
         FormsModule,
 
     ],
-  providers: [UsersService, BoardGamesService],
+  providers: [UsersService, BoardGamesService, UserFriendsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

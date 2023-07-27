@@ -1,6 +1,6 @@
 <!--<p>header works!</p>-->
 <!--<button  mat-raised-button color="accent" (click)="logout()">Log Out</button>-->
-<nav class="navbar is-transparent">
+<nav class="navbar is-transparent pb-6">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://bulma.io">
       <i class="fa-solid fa-dice" style="color: #2556ad;"></i>
@@ -14,22 +14,25 @@
 
   <div id="navbarExampleTransparentExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" >
+      <a class="navbar-item is-size-5" >
         Home
       </a>
           <hr class="navbar-divider">
-      <a class="navbar-item" >
+      <a class="navbar-item is-size-5" >
         My Account
       </a>
-          <a class="navbar-item" routerLink="/boardgames">
+          <a class="navbar-item is-size-5" routerLink="/boardgames">
            All boardgames
           </a>
-      <a class="navbar-item" routerLink="/collection">
+      <a class="navbar-item is-size-5" routerLink="/collection">
         My Collection
       </a>
-          <a class="navbar-item is-active" >
+          <a class="navbar-item is-size-5" >
             My scores
           </a>
+      <a class="navbar-item is-size-5" routerLink="/friends-list">
+        My friends
+      </a>
         </div>
 
     <div class="navbar-end">
