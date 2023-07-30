@@ -22,20 +22,29 @@
 <!--  </div>-->
 <!--</div>-->
 
+<!--  <button class="button is-warning ml-6 mr-auto">Go back</button>-->
+
 <div class="columns is-centered pb-6">
   <div class="column is-narrow">
     <div class="notification is-light has-text-centered">
-      <div *ngIf="!isSearching">
+      <div *ngIf="!isSearching && !onFriendsRequests">
       <p class="is-size-5">You have {{ getTotalFriendsCount() }} friends</p>
       </div>
       <br>
       <div class="field has-addons">
         <div class="control">
+          <div *ngIf="!onFriendsRequests">
           <input class="input" type="text" [(ngModel)]="searchQuery" placeholder="Search for friends" />
+          </div>
         </div>
         <div class="control">
+          <div *ngIf="!onFriendsRequests">
+          <div class ="buttons">
           <button class="button is-primary" (click)="searchFriends(searchQuery)" >Search</button>
-          <div *ngIf="isSearching">
+          <button class="button is-primary" (click)="getFriendsRequests(username)" >Friends request </button>
+            </div>
+          </div>
+          <div *ngIf="isSearching || onFriendsRequests">
             <br>
           <button class="button is-warning" (click)="getFriendsList(username)" >Go back</button>
             </div>
@@ -45,15 +54,36 @@
   </div>
 </div>
 
-<div *ngIf="!isSearching">
+<div id="delete1" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <p>Are you sure you want to delete this friend?</p>
+      <div class ="buttons">
+        <button class ="button is-danger" (click)="confirmDeleteFriend()">Yes</button>
+        <button class ="button is-link" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
+  </div>
+</div>
+
+
+<div *ngIf="!isSearching && !onFriendsRequests">
 <div class="tile is-ancestor is-justify-content-center">
 <div class="tile is-ancestor is-justify-content-center">
   <div class="columns is-multiline ">
     <div class="column is-3" *ngFor="let friendGroup of friendsList">
 <!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
         <article class="tile is-child box">
-        <p class="title is-5">{{ friendGroup.firstName }}</p>
+        <p class="title is-5">{{ friendGroup.firstName }} {{friendGroup.lastName}}</p>
         <p class="subtitle is-align-items-center">Subtitle</p>
+          <div class="buttons">
+            <button class="button is-danger is-small" (click)="startDelete(friendGroup)">Delete</button>
+
+          </div>
       </article>
     </div>
   </div>
@@ -61,7 +91,7 @@
 </div>
 </div>
 
-<div *ngIf="isSearching">
+<div *ngIf="isSearching && !onFriendsRequests">
   <div class="tile is-ancestor is-justify-content-center">
     <div class="tile is-ancestor is-justify-content-center">
       <div class="columns is-multiline ">
@@ -70,6 +100,13 @@
           <article class="tile is-child box is-12">
             <p class="title is-5">{{ friendGroup.firstName }}</p>
             <p class="subtitle is-align-items-center">Subtitle</p>
+             <div *ngIf=" !isFriend (friendGroup) && !isCurrentUser(friendGroup) && !hasSentRequest(friendGroup)">
+            <button class="button is-primary is-small"(click)="sendFriendRequest(friendGroup)">Send request</button>
+            </div>
+            <div *ngIf=" hasSentRequest(friendGroup)">
+              <button class="button is-primary is-small" disabled>Request sent</button>
+              <button class="button is-danger is-small" (click)="startDelete(friendGroup)">Delete request</button>
+            </div>
           </article>
         </div>
       </div>
@@ -77,4 +114,59 @@
   </div>
 </div>
 
+<div *ngIf="onFriendsRequests">
+  <div class="tile is-ancestor is-justify-content-center">
+    <div class="tile is-ancestor is-justify-content-center">
+      <div class="columns is-multiline ">
+        <div class="column is-10" *ngFor="let friendGroup of userFriendsRequests">
+          <!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
+          <article class="tile is-child box is-12">
+            <p class="title is-6">{{ friendGroup.firstName }}  {{friendGroup.lastName}}</p>
+            <p class="subtitle is-align-items-center">Subtitle</p>
+            <div class="buttons">
+              <button class="button is-danger is-small" (click)="startDelete(friendGroup)">Decline</button>
+              <button class="button is-primary is-small" (click)="acceptFriendRequest(friendGroup)">Accept</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="onFriendsRequests">
+<div id="delete" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <p>Are you sure you want to delete this friend request?</p>
+      <div class ="buttons">
+        <button class ="button is-danger" (click)="confirmDeleteFriendRequest()">Yes</button>
+        <button class ="button is-link" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
+  </div>
+</div>
+</div>
+
+<div *ngIf="onFriendsRequestsSent">
+  <div id="delete2" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="box">
+        <p>Are you sure you want to delete this friend request?</p>
+        <div class ="buttons">
+          <button class ="button is-danger" (click)="confirmDeleteFriendRequestSent()">Yes</button>
+          <button class ="button is-link" (click)="cancelDelete()">No</button>
+        </div>
+      </div>
+
+      <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
+    </div>
+  </div>
+</div>
 
