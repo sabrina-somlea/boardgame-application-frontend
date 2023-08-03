@@ -3,9 +3,9 @@ import {User} from "./users.model";
 
 export interface BoardGameSessionModel {
   id?: String;
-  sessionDate: Date;
+  sessionDate: string;
   boardGame: BoardGame;
   winner: User;
- players: Set<User>;
+ players: User[];
 
 }

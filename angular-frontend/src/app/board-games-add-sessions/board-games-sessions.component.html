@@ -1,0 +1,92 @@
+
+<div class ="hero">
+  <div class="column  is-5">
+<!--<div class="form-container">-->
+  <h2 class="title is-2">Session</h2>
+  <form (submit)="addBoardGameSession()">
+
+    <div class="field">
+      <label class="label">Session Date:</label>
+      <div class="control">
+        <input class="input" type="date" [(ngModel)]="newSession.sessionDate " name="sessionDate">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">BoardGame:</label>
+      <div class="control">
+        <input class="input" type="text" id="boardGameSelect" (input)="handleFilterBoardGames($event)" />
+      </div>
+      <div *ngIf="showDropdownGames && filteredGames.length > 0" class="dropdown is-active">
+        <div class="dropdown-menu">
+          <div class="dropdown-content">
+            <a *ngFor="let boardGame of filteredGames" class="dropdown-item" (click)="handleAddBoardGame(boardGame)">
+              {{ boardGame.name }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="newSession.boardGame">
+
+        <div *ngIf="showGameDeleteButton">
+          <div class="box">
+            {{ newSession.boardGame.name }}
+          </div>
+        <button class="button is-small is-danger" (click)="handleRemoveBoardGame()">delete board game</button>
+     </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="playerSelect">Select a player:</label>
+      <div class="control">
+        <input class="input" type="text" id="playerSelect" (input)="handleFilterPlayers($event)" />
+      </div>
+      <div *ngIf="showDropdown && filteredPlayers.length > 0" class="dropdown is-active">
+        <div class="dropdown-menu">
+          <div class="dropdown-content">
+            <a *ngFor="let player of filteredPlayers" class="dropdown-item" (click)="handleAddPlayer(player)">
+              {{ player.firstName }} {{ player.lastName }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Players:</label>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter" *ngFor="let player of newSession.players; let i = index">
+          <div class="box">
+            {{ player?.firstName }} {{ player?.lastName }}
+            <button class="button is-small is-danger" (click)="removePlayerFromSession(i)">Delete player</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Winner:</label>
+      <div class="control">
+        <div class="select">
+          <select [(ngModel)]="newSession.winner.id" name="winner">
+            <option value="">Select a player</option>
+            <option *ngFor="let winner of newSession.players" [value]="winner.id">
+              {{ winner.firstName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <button class="button is-primary" type="submit">Submit</button>
+      </div>
+    </div>
+
+  </form>
+  </div>
+<!--</div>-->
+</div>
+

@@ -12,6 +12,8 @@ import {
   BoardGamesUserCollectionComponent
 } from "./boardGames/board-games-list/board-games-user-collection/board-games-user-collection.component";
 import {FriendsListComponent} from "./user-friends/friends-list/friends-list.component";
+import {BoardGamesSessionsComponent} from "./board-games-add-sessions/board-games-sessions.component";
+import {BoardGamesSessionsListComponent} from "./board-games-sessions-list/board-games-sessions-list.component";
 
 const routes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -21,7 +23,10 @@ const routes: Routes = [
   {path: 'boardgames', component: BoardGamesListComponent},
   {path: 'boardgames/add', component: BoardGamesAddComponent},
   {path: 'collection', component: BoardGamesUserCollectionComponent},
-  {path: 'friends-list', component: FriendsListComponent}
+  {path: 'friends-list', component: FriendsListComponent},
+  {path: 'add-session', component: BoardGamesSessionsComponent},
+  {path: 'add-session', component: BoardGamesSessionsComponent},
+  {path: 'boardGamesSessionList', component: BoardGamesSessionsListComponent}
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

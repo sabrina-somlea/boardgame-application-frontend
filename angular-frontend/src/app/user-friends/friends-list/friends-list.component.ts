@@ -36,6 +36,7 @@ export class FriendsListComponent {
       .subscribe((data: User[])=> { this.friendsList = data});
     this.isSearching=false;
     this.onFriendsRequests=false;
+    console.log(this.friendsList)
   }
 
   getTotalFriendsCount(): number {

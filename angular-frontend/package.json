@@ -23,6 +23,7 @@
     "@fortawesome/angular-fontawesome": "^0.12.1",
     "bulma": "^0.9.4",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

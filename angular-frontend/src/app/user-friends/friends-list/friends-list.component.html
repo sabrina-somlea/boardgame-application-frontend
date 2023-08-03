@@ -1,29 +1,4 @@
 <app-header></app-header>
-<!--<div class="tile is-ancestor is-vertical">-->
-<!--  <div class="tile is-parent is-3" *ngFor="let friend of friendsList">-->
-<!--    <article class="tile is-child box">-->
-<!--      <p class="title is-5">{{ friend.firstName }}</p>-->
-<!--&lt;!&ndash;      <p class="title">test</p>&ndash;&gt;-->
-<!--      <p class="subtitle is-align-items-center">Subtitle</p>-->
-<!--    </article>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="box has-text-centered ">-->
-<!--  <p class="title is-5">You have {{ getTotalFriendsCount() }} friends</p>-->
-<!--  <p> search for a friend</p>-->
-<!--</div>-->
-
-<!--<div class="columns is-centered">-->
-<!--  <div class="column is-narrow">-->
-<!--    <div class="notification has-text-centered">-->
-<!--      <p class="is-size-5">You have {{ getTotalFriendsCount() }} friends</p>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--  <button class="button is-warning ml-6 mr-auto">Go back</button>-->
-
 <div class="columns is-centered pb-6">
   <div class="column is-narrow">
     <div class="notification is-light has-text-centered">
@@ -34,7 +9,7 @@
       <div class="field has-addons">
         <div class="control">
           <div *ngIf="!onFriendsRequests">
-          <input class="input" type="text" [(ngModel)]="searchQuery" placeholder="Search for friends" />
+          <input class="input" type="text" [(ngModel)]="searchQuery" placeholder="Find new friends" />
           </div>
         </div>
         <div class="control">

@@ -27,8 +27,9 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import { BoardGamesUserCollectionComponent } from './boardGames/board-games-list/board-games-user-collection/board-games-user-collection.component';
 import { FriendsListComponent } from './user-friends/friends-list/friends-list.component';
 import {UserFriendsService} from "./services/user-friends.service";
-import { BoardGamesSessionsComponent } from './board-games-sessions/board-games-sessions.component';
+import { BoardGamesSessionsComponent } from './board-games-add-sessions/board-games-sessions.component';
 import {BoardGamesSessionsService} from "./services/boardGamesSessions.service";
+import { BoardGamesSessionsListComponent } from './board-games-sessions-list/board-games-sessions-list.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {BoardGamesSessionsService} from "./services/boardGamesSessions.service";
     BoardGamesUserCollectionComponent,
     FriendsListComponent,
     BoardGamesSessionsComponent,
+    BoardGamesSessionsListComponent,
   ],
     imports: [
         BrowserModule,
