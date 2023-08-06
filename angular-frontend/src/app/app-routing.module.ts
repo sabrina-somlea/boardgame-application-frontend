@@ -14,6 +14,7 @@ import {
 import {FriendsListComponent} from "./user-friends/friends-list/friends-list.component";
 import {BoardGamesSessionsComponent} from "./board-games-add-sessions/board-games-sessions.component";
 import {BoardGamesSessionsListComponent} from "./board-games-sessions-list/board-games-sessions-list.component";
+import {UserProfileComponent} from "./user-profile/user-profile.component";
 
 const routes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -25,7 +26,7 @@ const routes: Routes = [
   {path: 'collection', component: BoardGamesUserCollectionComponent},
   {path: 'friends-list', component: FriendsListComponent},
   {path: 'add-session', component: BoardGamesSessionsComponent},
-  {path: 'add-session', component: BoardGamesSessionsComponent},
+  {path: 'my-profile', component: UserProfileComponent},
   {path: 'boardGamesSessionList', component: BoardGamesSessionsListComponent}
 ]
 @NgModule({

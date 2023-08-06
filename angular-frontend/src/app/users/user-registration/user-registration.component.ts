@@ -18,6 +18,7 @@ export class UserRegistrationComponent {
 
   namePattern = "[a-zA-Z- ]*";
   userPattern = "[a-zA-Z0-9_ -.]*";
+  profileImage: File | null = null;
 
   get firstName() {
     return this.registrationForm.get('firstName');
@@ -58,13 +59,15 @@ export class UserRegistrationComponent {
     email: ['', [Validators.required, Validators.email]],
     username: ['', [Validators.required, Validators.pattern(this.userPattern), Validators.maxLength(50)], [this.usersService.usernameValidator()] ],
     password: ['', Validators.required],
-    confirmPassword: ['', Validators.required]
+    confirmPassword: ['', Validators.required],
+    profileImage: [null]
 
   }, {validator: PasswordValidator});
 
 
-  onSave(firstName: string, lastName: string, birthday: string, gender: string, email: string, username: string, password: string) {
-    const user: User = {firstName, lastName, birthday, gender, email, username, password};
+  onSave(firstName: string, lastName: string, birthday: string, gender: string, email: string, username: string, password: string, profileImage: HTMLInputElement) {
+    // @ts-ignore
+    const user: User = {firstName, lastName, birthday, gender, email, username, password, profileImage};
     console.log("onSave: ", firstName, lastName, birthday, gender, email, username, password);
     this.usersService.saveUser(user)
       .subscribe(_ => {
@@ -108,6 +111,28 @@ maxDate:any;
     this.minDate = year + "-" + month + "-" + todayDate;
     console.log(this.maxDate);
   }
+
+  onFileSelected(event: any) {
+      this.profileImage = event.target.files[0];
+
+    // if (this.profileImage) {
+    //   const reader = new FileReader();
+    //
+    //   // Înregistrăm un eveniment pentru când citirea fișierului s-a terminat
+    //   reader.onload = (event) => {
+    //     const result = reader.result as ArrayBuffer;
+    //     const imageBytes = new Uint8Array(result);
+    //     console.log('Imaginea convertită în bytes:', imageBytes);
+    //     this.registrationForm.patchValue({
+    //       profileImage: imageBytes
+    //     });
+    //     // Aici poți face orice altceva cu imaginea în bytes, de exemplu, o poți trimite către backend
+    //   };
+    //
+    //   // Citim fișierul ca un șir de octeți (bytes array)
+    //   reader.readAsArrayBuffer(this.profileImage);
+    // }
+    };
 
 
 }

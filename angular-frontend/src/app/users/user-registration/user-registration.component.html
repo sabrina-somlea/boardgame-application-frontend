@@ -81,7 +81,11 @@
       <input [class.is-invalid]="confirmPassword?.touched && registrationForm.errors?.['mismatch']"  formControlName="confirmPassword"  type="password"  class="form-control">
       <small class ="text-danger" *ngIf="registrationForm.errors?.['mismatch']"> Passwords do not match </small>
     </div>
-    <button class="btn btn-primary"  [disabled]="!registrationForm.valid" (click)=" onSave(firstNameInput.value, lastNameInput.value, birthdayInput.value, genderInput.value, emailInput.value, usernameInput.value, passwordInput.value)"> Submit</button>
+    <div class="form-group" >
+      <label> Profile Image </label>
+      <input  #fileInput type="file" name="profileImage" (change)="onFileSelected($event)" accept="image/*" enctype="multipart/form-data">
+    </div>
+    <button class="btn btn-primary"  [disabled]="!registrationForm.valid" (click)=" onSave(firstNameInput.value, lastNameInput.value, birthdayInput.value, genderInput.value, emailInput.value, usernameInput.value, passwordInput.value, fileInput)"> Submit</button>
   </form>
   {{registrationForm.value | json}}
 </div>

@@ -53,11 +53,13 @@ export class BoardGamesSessionsComponent {
   showDropdown: boolean = false;
   showDropdownGames: boolean = false;
   showGameDeleteButton: boolean = false;
+  currentUser: any;
   constructor(private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
   }
 
   ngOnInit(): void {
     const username = this.tokenStorageService.getUser()
+    this.viewUserDetails()
     this.getFriendsList(username);
     console.log(this.friendsList);
     this.loadUserCollection(username)
@@ -67,6 +69,7 @@ export class BoardGamesSessionsComponent {
     this.userFriendsService.viewUserFriends(this.tokenStorageService.getUser())
       .subscribe((data: User[]) => {
         this.friendsList = data;
+        this.friendsList.push(this.currentUser)
         console.log(this.friendsList);
       });
   }
@@ -191,5 +194,14 @@ export class BoardGamesSessionsComponent {
     this.showDropdownGames = false;
     this.showGameDeleteButton=true;
     }
-
+  viewUserDetails(): void {
+    this.userService.getUserInfo().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+        console.log(this.currentUser)
+      },
+      (error: any) => {
+        console.error('Could not get user info', error);
+      })
+  }
 }

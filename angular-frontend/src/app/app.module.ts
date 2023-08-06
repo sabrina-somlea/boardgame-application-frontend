@@ -30,6 +30,7 @@ import {UserFriendsService} from "./services/user-friends.service";
 import { BoardGamesSessionsComponent } from './board-games-add-sessions/board-games-sessions.component';
 import {BoardGamesSessionsService} from "./services/boardGamesSessions.service";
 import { BoardGamesSessionsListComponent } from './board-games-sessions-list/board-games-sessions-list.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { BoardGamesSessionsListComponent } from './board-games-sessions-list/boa
     FriendsListComponent,
     BoardGamesSessionsComponent,
     BoardGamesSessionsListComponent,
+    UserProfileComponent,
   ],
     imports: [
         BrowserModule,

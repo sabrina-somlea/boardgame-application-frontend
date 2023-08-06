@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, debounceTime, delay, map, Observable, of} from "rxjs";
 import {User} from "../models/users.model";
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/forms";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {TokenStorageService} from "./token-storage.service";
+import {BoardGameSessionModel} from "../models/boardGameSession.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class UsersService {
   private userUrl = "http://localhost:8080/api/v1/auth/register"
   private welcomePage = "http://localhost:8080/api/v1/welcome"
   private userLoginUrl = "http://localhost:8080/api/v1/auth/authenticate"
-  constructor(private httpClient:HttpClient) { this.jwtHelper = new JwtHelperService();
+  constructor(private httpClient:HttpClient, private tokenStorageService: TokenStorageService) { this.jwtHelper = new JwtHelperService();
     this.userSubject = new BehaviorSubject(
       JSON.parse(localStorage.getItem('user')!)
     );
@@ -31,7 +33,11 @@ export class UsersService {
 
   saveUser(user: User): Observable<User> {
     return this.httpClient
-      .post<User>(this.userUrl, user)
+      .post<User>(this.userUrl, user,   {
+        // headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }),
+        // reportProgress: true,
+        // responseType: 'json',
+      })
 
   }
 
@@ -85,6 +91,26 @@ export class UsersService {
       return this.decodeToken(this.getUserData().token).sub;
     }
     return undefined;
+  }
+  getUserInfo (): Observable<User>{
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `http://localhost:8080/api/v1/userLoggedIn`;
+    return this.httpClient.get<User>(url,  { headers });
+  }
+
+  updateUserInfo (user: User): Observable<User> {
+    const url = `http://localhost:8080/api/v1/users/`;
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.put<User>(`http://localhost:8080/api/v1/users/${user.username}`, user,  { headers })
+  }
+
+  updatePassword(userId: String, initialPassword: string, newPassword: string) {
+    const body = { initialPassword, newPassword };
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.put(`http://localhost:8080/api/v1/users/id=${userId}`, body, {headers});
   }
 
 }

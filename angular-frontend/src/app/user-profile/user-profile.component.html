@@ -1,0 +1,73 @@
+<app-header></app-header>
+ <div *ngIf="currentUser"class="container">
+  <h1 class="title">Profilul utilizatorului</h1>
+  <div class="content">
+    <div class="field">
+      <label class="label">Nume:</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="editedUser.lastName" [readonly]="!isEditing">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Prenume:</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="editedUser.firstName" [readonly]="!isEditing">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Username:</label>
+      <div class="control">
+        <input class="input" type="text" value="{{ currentUser.username }}" disabled>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Email:</label>
+      <div class="control">
+        <input class="input" type="email" [(ngModel)]="editedUser.email" [readonly]="!isEditing">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Data nașterii:</label>
+      <div class="control">
+        <input class="input" type="date" [(ngModel)]="editedUser.birthday" [readonly]="!isEditing">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Sex:</label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="editedUser.gender" [readonly]="!isEditing">
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary" (click)="toggleEdit()" *ngIf="!isEditing">Editare</button>
+        <button class="button is-success" (click)="saveChanges()" *ngIf="isEditing">Salvare</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--password change-->
+
+<div class="container">
+  <h2>Change password:</h2>
+  <form (ngSubmit)="updatePassword()">
+    <div class="field">
+
+      <label for="oldPassword">Old Password:</label>
+      <input type="password" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword">
+    </div>
+    <div>
+      <label for="newPassword">New Password:</label>
+      <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword">
+    </div>
+    <br>
+    <button mat-raised-button color="primary"type="submit">Update Password</button>
+
+    <div class="notification is-info is-light" *ngIf="showNotification">
+      <button class="delete" (click)="closeNotification()"></button>
+      Password has been updated!
+    </div>
+  </form>
+</div>

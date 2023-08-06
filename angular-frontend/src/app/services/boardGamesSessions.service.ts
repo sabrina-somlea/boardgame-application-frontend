@@ -37,4 +37,17 @@ export class BoardGamesSessionsService {
     return this.httpClient.put<BoardGameSessionModel>(`http://localhost:8080/api/v1/session/${boardGameSession.id}`, boardGameSession,  { headers })
   }
 
+  removeBoardGameSession(boardGameSession: BoardGameSessionModel): Observable<BoardGameSessionModel> {
+    const token = this.tokenStorageService.getToken();
+    const usernameL = this.tokenStorageService.getUser()
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.delete<BoardGameSessionModel>(`http://localhost:8080/api/v1/session/${boardGameSession.id}`, {headers});
+  }
+
+  filterBoardGameSession(username: string, sessionDate: string,boardGameName: string, winnerName: string, playerName: string ) : Observable<BoardGameSessionModel[]>{
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `http://localhost:8080/api/v1/${username}/sessions?sessionDate=${sessionDate}&boardGameName=${boardGameName}&winnerName=${winnerName}&playerName=${playerName}`;
+    return this.httpClient.get<BoardGameSessionModel[]>(url, {headers});
+  }
 }

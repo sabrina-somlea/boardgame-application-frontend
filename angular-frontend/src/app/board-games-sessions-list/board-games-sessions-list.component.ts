@@ -69,7 +69,7 @@ export class BoardGamesSessionsListComponent {
   };
   updateBoardGameSession: BoardGameSessionModel | null = null;
   markedForUpdate: BoardGameSessionModel | undefined;
-  selectedSessionId:String = '';
+  selectedSessionId: String = '';
   friendsList: User[] = [];
   boardGamesInitial: BoardGame[] = [];
   boardGames: BoardGame[] = [];
@@ -84,16 +84,27 @@ export class BoardGamesSessionsListComponent {
   showGameDeleteButton: boolean = false;
   filteredGames: BoardGame[] = [];
   selectedPlayers: User[] = [];
+  markedForDeletion: BoardGameSessionModel | undefined;
+  currentUser: any;
+  playerAlreadySelected = false;
+  sessionBDate: string = '';
+  boardGameName: string = '';
+  winnerName: string ='';
+
+
+
   constructor(private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
   }
 
   ngOnInit(): void {
     const username = this.tokenStorageService.getUser()
+    this.viewUserDetails();
     this.getBoardGamesSessionsList(username);
 
     console.log(this.boardGameSessionsList);
     this.getFriendsList(username);
     this.loadUserCollection(username)
+
   }
 
   getBoardGamesSessionsList(username: string) {
@@ -111,14 +122,14 @@ export class BoardGamesSessionsListComponent {
 
   startUpdate(boardGameSession: BoardGameSessionModel): void {
     this.markedForUpdate = boardGameSession;
-    this.newSession = { ...boardGameSession };
-    console.log('edit session', this.markedForUpdate)
+    this.newSession = {...boardGameSession};
+    console.log('edit session', this.newSession)
 
   }
 
-  confirmUpdate():void{
+  confirmUpdate(): void {
     if (this.markedForUpdate) {
-      console.log('noile detalii' +this.markedForUpdate)
+      console.log('noile detalii' + this.markedForUpdate)
       this.boardGamesSessionService
         .updateBoardGameSession(this.newSession)
         .subscribe((data: BoardGameSessionModel) => {
@@ -130,6 +141,7 @@ export class BoardGamesSessionsListComponent {
         });
     }
   }
+
   cancelUpdate(): void {
     this.markedForUpdate = undefined;
   }
@@ -138,6 +150,7 @@ export class BoardGamesSessionsListComponent {
     this.userFriendsService.viewUserFriends(this.tokenStorageService.getUser())
       .subscribe((data: User[]) => {
         this.friendsList = data;
+        this.friendsList.push(this.currentUser)
         console.log(this.friendsList);
       });
   }
@@ -171,11 +184,16 @@ export class BoardGamesSessionsListComponent {
 
   handlePlayerSelect(player: User) {
     this.selectedPlayer = player;
+    // console.log('player selectat' + this.selectedPlayer)
   }
 
   handleAddPlayer(player: User) {
     this.selectedPlayer = player;
-    if (!this.newSession.players.includes(player)) {
+    console.log('player selectat' + this.selectedPlayer)
+    const playerExists = this.newSession.players.some(
+      // @ts-ignore
+      (p) => p.id === this.selectedPlayer.id);
+    if (!playerExists) {
       this.newSession.players.push(this.selectedPlayer)
       console.log('player selecteeed:', this.selectedPlayer);
 
@@ -183,8 +201,9 @@ export class BoardGamesSessionsListComponent {
       this.selectedPlayer = null;
       this.showDropdown = false;
       console.log(this.newSession.players)
-    }
-    else{
+    } else {
+      this.playerAlreadySelected = true;
+      this.showDropdown = false;
       console.log('player already selected')
     }
   }
@@ -203,6 +222,7 @@ export class BoardGamesSessionsListComponent {
     this.newSession.boardGame.name = null;
     console.log(this.newSession);
   }
+
   handleFilterBoardGames(event: any) {
     const searchQuery = event.target.value.toLowerCase();
     this.filteredGames = this.boardGames.filter(
@@ -220,7 +240,53 @@ export class BoardGamesSessionsListComponent {
     // this.selectedBoardGame = null;
     this.showDropdown = false;
     this.showDropdownGames = false;
-    this.showGameDeleteButton=true;
+    this.showGameDeleteButton = true;
   }
+
+  startDelete(boardGameSessionItem: BoardGameSessionModel): void {
+    console.log('s-a accesat startDelete')
+    this.markedForDeletion = boardGameSessionItem;
   }
+
+  confirmDelete(): void {
+    if (this.markedForDeletion) {
+      console.log('a intrat in if confirmdelete')
+      this.boardGamesSessionService
+        .removeBoardGameSession(this.markedForDeletion!)
+        .subscribe((data) => {
+          alert('Board Game removed successfully!');
+          this.markedForDeletion = undefined;
+          const username = this.tokenStorageService.getUser()
+          this.getBoardGamesSessionsList(username);
+          //notification
+        });
+    }
+  }
+
+  cancelDelete(): void {
+    this.markedForDeletion = undefined;
+  }
+
+  viewUserDetails(): void {
+    this.userService.getUserInfo().subscribe(
+      (user: User) => {
+        this.currentUser = user;
+        console.log(this.currentUser)
+      },
+      (error: any) => {
+        console.error('Could not get user info', error);
+      })
+  }
+
+  filterBoardGameSessions(){
+    this.boardGamesSessionService.filterBoardGameSession(this.currentUser.username, this.sessionBDate, this.boardGameName, this.winnerName, this.playerName)
+      .subscribe((data: BoardGameSessionModel[]) =>{
+        this.boardGameSessionsList = data;
+        this.boardGameSessionsList.forEach(session => {
+          const date = moment(session.sessionDate).format('YYYY-MM-DD');
+          session.sessionDate = date;
+      });
+  })
+}
+}
 

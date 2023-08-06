@@ -1,11 +1,47 @@
 <app-header></app-header>
+
+
+<div class ="hero-body">
+<div class="columns">
+
+<div class="field is-4">
+  <label class="label">Session date:</label>
+  <div class="control">
+    <input class="input" type="date" [(ngModel)]="sessionBDate" placeholder="ex: 2023-06-06">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Board game name:</label>
+  <div class="control">
+    <input class="input" type="text"  [(ngModel)]="boardGameName" placeholder="ex: Azul">
+  </div>
+</div>
+<div class="field">
+  <label class="label">Winner name:</label>
+  <div class="control">
+    <input class="input" type="text"  [(ngModel)]="winnerName" placeholder="ex: Ana">
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Player name:</label>
+  <div class="control">
+    <input class="input" type="text"  [(ngModel)]="playerName" placeholder="ex: Ana">
+  </div>
+</div>
+</div>
+
+<button class="button is-info"(click)="filterBoardGameSessions()">Filter sessions</button>
+  <a [routerLink]="['/add-session']" class="button is-primary is-light">Add new session</a>
+</div>
 <div class ="hero-body">
   <div class="columns is-multiline ">
   <div class="column is-4" *ngFor="let session of boardGameSessionsList">
   <div class="box">
     <div class="control is-pulled-right">
       <button class="button is-small is-primary" (click)="startUpdate(session)">Edit</button>
-        <button class="button is-small is-warning">Delete</button>
+        <button class="button is-small is-warning" (click)="startDelete(session)">Delete</button>
     </div>
     <h2 class="title is-4">Session</h2>
     <div class="field">
@@ -105,6 +141,9 @@
                     <button class="button is-small is-danger" (click)="removePlayerFromSession(i)">Delete player</button>
                   </div>
                 </div>
+                <div *ngIf="playerAlreadySelected">
+                  Player already selected! Choose another player.
+                </div>
               </div>
             </div>
 
@@ -130,5 +169,21 @@
     </div>
   </div>
 </div>
+  </div>
+</div>
+
+<div id="delete" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <p>Do you really want to delete this session game?</p>
+      <div class ="buttons">
+        <button class ="button is-danger" (click)="confirmDelete()">Yes</button>
+        <button class ="button is-link" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
   </div>
 </div>
