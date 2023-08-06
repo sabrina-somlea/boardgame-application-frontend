@@ -31,6 +31,8 @@ import { BoardGamesSessionsComponent } from './board-games-add-sessions/board-ga
 import {BoardGamesSessionsService} from "./services/boardGamesSessions.service";
 import { BoardGamesSessionsListComponent } from './board-games-sessions-list/board-games-sessions-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -51,21 +53,23 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     BoardGamesSessionsListComponent,
     UserProfileComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterOutlet,
-        HttpClientModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        NoopAnimationsModule,
-        FontAwesomeModule,
-        FormsModule,
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NoopAnimationsModule,
+    FontAwesomeModule,
+    FormsModule,
+    MatSortModule,
+    MatPaginatorModule,
 
-    ],
+  ],
   providers: [UsersService, BoardGamesService, UserFriendsService, BoardGamesSessionsService],
   bootstrap: [AppComponent]
 })

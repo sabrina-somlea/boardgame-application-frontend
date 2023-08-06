@@ -1,21 +1,25 @@
 <app-header></app-header>
-<table class="table is-hoverable is-bordered">
+<div>
+  <app-board-games-search></app-board-games-search>
+</div>
+<div *ngIf="showGamesList">
+<table matSort (matSortChange)="sortData($event)" class="table is-hoverable is-bordered">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Year Published</th>
-    <th>Minimum Players</th>
-    <th>Maximum Players</th>
-    <th>Minimum Play time</th>
-    <th>Maximum Play time</th>
+    <th mat-sort-header="Name"> Name</th>
+<!--    <th>Description</th>-->
+    <th mat-sort-header="Year Published">Year Published</th>
+    <th mat-sort-header="Minimum Players">Minimum Players</th>
+    <th mat-sort-header="Maximum Players">Maximum Players</th>
+    <th mat-sort-header="Minimum Play Time">Minimum Play time</th>
+    <th mat-sort-header="Maximum Play Time">Maximum Play time</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let boardgame of boardGames">
+  <tr *ngFor="let boardgame of boardGames.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
     <td>{{boardgame.name}}</td>
-    <td [innerHtml]="boardgame.description"></td>
+<!--    <td [innerHtml]="boardgame.description"></td>-->
     <td>{{boardgame.year_published}}</td>
     <td>{{boardgame.min_players}}</td>
     <td>{{boardgame.max_players}}</td>
@@ -23,25 +27,105 @@
     <td>{{boardgame.max_playtime}}</td>
     <td>
       <div class="buttons">
-        <button class="button is-danger is-small" (click)="startDelete(boardgame)">Remove from collection</button>
+        <button class="button is-danger is-small is-fullwidth" (click)="startDelete(boardgame)">Remove boardgame</button>
+        <button class="button is-info is-small is-fullwidth" (click)="showModal(boardgame)">See Description</button>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
+</div>
+<br>
+<div *ngIf="!showGamesList && searchResults && searchResults.length > 0">
+  <div class="has-text-centered">
+    <h2>{{ noResultsMessage }}</h2>
+  </div>
+  <br>
+  <button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
+  <br>
+  <br>
+  <table class="table is-hoverable is-bordered">
+
+    <tr>
+      <th>Name</th>
+      <th>Year Published</th>
+      <th>Minimum Players</th>
+      <th>Maximum Players</th>
+      <th>Minimum Play time</th>
+      <th>Maximum Play time</th>
+      <th>Actions</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let result of searchResults.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
+      <td>{{result.name}}</td>
+      <td>{{result.year_published}}</td>
+      <td>{{result.min_players}}</td>
+      <td>{{result.max_players}}</td>
+      <td>{{result.min_playtime}}</td>
+      <td>{{result.max_playtime}}</td>
+      <td>
+        <div class="buttons">
+          <div *ngIf=" !addedAlreadyToCollection(result)">
+          <button class="button is-info is-small is-fullwidth" (click)="addGameToCollection(username,result)">Add game to collection</button>
+            <button class="button is-info is-small is-fullwidth" (click)="showModal(result)">See Description</button>
+        </div>
+          <div *ngIf=" addedAlreadyToCollection(result)">
+            <button class="button is-info is-small" disabled>Game already added to collection</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!showGamesList && searchResults && searchResults.length === 0">
+  <div class="has-text-centered">
+    <h2>{{ noResultsMessage }}</h2>
+  </div>
+</div>
 
 <div id="delete" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
-  <div class="modal-background"></div>
+  <div class="modal-background is-narrow"></div>
 
-  <div class="modal-content">
+  <div class="modal-content is-narrow">
     <div class="box">
       <p>Do you really want to remove the game from your collection?</p>
+      <br>
       <div class ="buttons">
-        <button class ="button is-danger" (click)="confirmDelete()">Yes</button>
-        <button class ="button is-link" (click)="cancelDelete()">No</button>
+        <button class ="button is-danger is-small is-1" (click)="confirmDelete()">Yes</button>
+        <button class ="button is-link is-small" (click)="cancelDelete()">No</button>
       </div>
     </div>
 
     <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
   </div>
 </div>
+
+
+<div class="modal" id="gameModal" [ngClass]="{'is-active': showModalGame !== undefined}">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <header class="modal-card-head">
+        <h2><b>Description for BoardGame: {{ showModalGame?.name }}</b></h2>
+      </header>
+
+      <div [innerHTML]="showModalGame?.description"></div>
+
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
+</div>
+
+
+<div class="pagination is-centered">
+<mat-paginator
+  [length]="totalItems"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 50]"
+  (page)="onPageChange($event)"
+></mat-paginator>
+</div>
+
+<button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>

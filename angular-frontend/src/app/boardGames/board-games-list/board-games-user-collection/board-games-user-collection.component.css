@@ -1,1 +1,7 @@
 @import '~bulma/css/bulma.css';
+.custom-paginator {
+  display: flex;
+  justify-content: center;
+}
+
+
