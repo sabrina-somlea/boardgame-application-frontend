@@ -2,6 +2,19 @@
 <div>
   <app-board-games-search></app-board-games-search>
 </div>
+<div class="is-flex is-align-items-center is-justify-content-center">
+<div id="notification" class="notification is-info is-light" *ngIf="showNotification">
+  <button class="delete" (click)="closeNotification()"></button>
+  Board game added to your collection!
+</div>
+</div>
+
+<div class="is-flex is-align-items-center is-justify-content-center">
+  <div  class="notification is-info is-light" *ngIf="showDeleteNotification">
+    <button class="delete" (click)="closeDeleteNotification()"></button>
+    Board game has been removed from your collection!
+  </div>
+</div>
 <div *ngIf="showGamesList">
 <table matSort (matSortChange)="sortData($event)" class="table is-hoverable is-bordered">
   <thead>
@@ -73,11 +86,16 @@
             <button class="button is-info is-small" disabled>Game already added to collection</button>
           </div>
         </div>
+
       </td>
     </tr>
     </tbody>
   </table>
-</div>
+
+
+    </div>
+
+
 
 <div *ngIf="!showGamesList && searchResults && searchResults.length === 0">
   <div class="has-text-centered">
@@ -127,5 +145,6 @@
   (page)="onPageChange($event)"
 ></mat-paginator>
 </div>
-
+<div *ngIf="!showGamesList" >
 <button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
+</div>

@@ -4,4 +4,7 @@
   justify-content: center;
 }
 
-
+.notification.is-primary {
+  position: absolute;
+  z-index: 1;
+}

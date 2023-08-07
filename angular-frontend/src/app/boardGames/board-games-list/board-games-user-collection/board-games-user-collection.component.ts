@@ -26,6 +26,8 @@ export class BoardGamesUserCollectionComponent {
   totalItems = 0; // Numărul total de elemente disponibile
   currentPage = 0; // Pagina curentă
   pageSizeOptions = [5, 10, 25, 50];
+  showNotification: boolean = false
+  showDeleteNotification: boolean = false
 
   constructor(private boardGamesService: BoardGamesService, private userService: UsersService, private tokenStorageService: TokenStorageService, private router: Router) {
 
@@ -38,7 +40,6 @@ export class BoardGamesUserCollectionComponent {
       .subscribe(results => {
         this.receiveSearchResults(results);
       });
-    // this.sortedData = this.boardGames.slice()
   }
 
  loadUserCollection(username: string): void {
@@ -61,7 +62,7 @@ export class BoardGamesUserCollectionComponent {
         .removeBoardGameFromUserCollection(this.tokenStorageService.getUser(), this.markedForDeletion.id!)
 
         .subscribe((data) => {
-          alert('Board Game removed successfully!');
+         this.showDeleteNotification = true;
           this.markedForDeletion = undefined;
           const username = this.tokenStorageService.getUser()
           this.loadUserCollection(username);
@@ -95,6 +96,7 @@ export class BoardGamesUserCollectionComponent {
     this.boardGamesService.addGameToCollection(this.tokenStorageService.getUser(), boardGame).subscribe(
       (response) => {
         console.log('Gamed added to users collection');
+        this.showNotification = true;
       },
       (error) => {
         console.log('Eroare. The game could not be added to user collect.');
@@ -167,8 +169,14 @@ export class BoardGamesUserCollectionComponent {
     const username = this.tokenStorageService.getUser()
     this.loadUserCollection(username);
   }
+  closeNotification() {
 
+    this.showNotification = false;
+  }
+  closeDeleteNotification() {
 
+    this.showDeleteNotification = false;
+  }
 }
 
 function compare(a: String | number, b: String | number, isAsc: boolean) {

@@ -112,5 +112,7 @@ export class BoardGamesListComponent implements OnInit{
       }
     );
   }
+
+
 }
 
