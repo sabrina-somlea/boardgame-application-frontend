@@ -13,27 +13,14 @@
       <span>Have an account?</span>
       <header>Login</header>
     </div>
-<!--    <div class="input-field">-->
-<!--      <input type="text" class="input" placeholder="Username" id="">-->
-<!--&lt;!&ndash;      <input #usernameInput [class.is-invalid]= "username?.invalid&ndash;&gt;-->
-<!--&lt;!&ndash;                                && username?.touched" formControlName="username"  type="text"   class="form-control">&ndash;&gt;-->
-<!--      <div *ngIf ="username?.invalid && username?.touched">-->
-<!--        <small *ngIf="username?.errors?.['required']" class ="text-danger"> Username is required</small>-->
-<!--        </div>-->
-<!--      <i class='bx bx-user' ></i>-->
-<!--    </div>-->
-
     <div class="input-field">
       <input #username type="text" class="input" placeholder="Username" formControlName="username">
-      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+
+      <div  *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
         <small *ngIf="loginForm.get('username')?.errors?.['required']" class="text-danger">Username is required</small>
       </div>
       <i class='bx bx-user'></i>
     </div>
-<!--    <div class="input-field">-->
-<!--      <input type="Password" class="input" placeholder="Password" id="">-->
-<!--      <i class='bx bx-lock-alt'></i>-->
-<!--    </div>-->
     <div class="input-field">
       <input #password type="password" class="input" placeholder="Password" formControlName="password">
       <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
@@ -42,26 +29,18 @@
       <i class='bx bx-user'></i>
     </div>
     <div class="input-field">
-      <input type="submit" class="submit" value="Login" (click)="login(username.value,password.value )">
+      <input type="submit" class="submit" [disabled]="!loginForm.valid" value="Login" (click)="login(username.value,password.value )">
     </div>
     <div class="two-col">
-      <div class="one">
-        <input type="checkbox" name="" id="check">
-        <label for="check"> Remember Me</label>
-      </div>
-      <div class="two">
         <label><a routerLink="/user-registration">Not a member yet? Please sign up</a></label>
-<!--        addNewUser(){-->
-<!--        this.router.navigate(['user-registration']);-->
-<!--        }-->
-      </div>
     </div>
-
+    <div *ngIf="isLoginFailed" class="login-danger">
+      {{ errorMessage }}
+    </div>
   </div>
   </form>
-  <div class="alert alert-success" *ngIf="isLoggedIn">Logged in succesufully</div>
-  <button *ngIf="isLoggedIn" mat-raised-button color="accent" (click)="logout()">Log Out</button>
 </div>
+
 </body>
 
 </html>

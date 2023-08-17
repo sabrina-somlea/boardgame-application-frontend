@@ -7,5 +7,6 @@ export interface BoardGameApiModel{
   maxPlayers: number;
   minPlayTime: number;
   maxPlayTime: number;
+  imageUrl: String;
 
 }

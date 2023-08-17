@@ -4,10 +4,10 @@
 }
 body{
   background-image: url("utils/4.png");
-  background-color: brown;
-  background-size: cover;
+  background-color: #663b2c;
+  /*background-size: cover;*/
   background-position: center;
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   background-repeat: no-repeat;
 
 }
@@ -76,10 +76,14 @@ i{
 .submit:hover{
   box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
 }
+.submit[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .two-col{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   color: #fff;
   font-size: small;
   margin-top: 10px;
@@ -90,4 +94,20 @@ i{
 label a{
   text-decoration: none;
   color: #fff;
+}
+
+.text-danger{
+  color: #fff;
+  justify-content: center;
+  position: relative;
+
+}
+.login-danger{
+  color: #fff;
+  justify-content: center;
+  position: relative;
+  flex-direction: row;
+  font-size: medium;
+  margin-top: 10px;
+
 }

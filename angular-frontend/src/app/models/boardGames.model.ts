@@ -7,6 +7,7 @@ export interface BoardGame{
   max_players: number;
   min_playtime: number;
   max_playtime: number;
+  image_url?: String;
   username?: string
 
 }

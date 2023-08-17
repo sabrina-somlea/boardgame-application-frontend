@@ -22,9 +22,12 @@ export class BoardGamesUserCollectionComponent {
   noResultsMessage: string = "";
   showGamesList: boolean = true;
   sortedData: BoardGame[] | undefined
-  pageSize = 10; // Numărul de elemente afișate pe o pagină
-  totalItems = 0; // Numărul total de elemente disponibile
+  pageSize = 10;
+  pageSizeResult = 10;
+  totalItems = 0;
+  totalItemsResult = 0; //// Numărul total de elemente disponibile
   currentPage = 0; // Pagina curentă
+  currentPageResult = 0;
   pageSizeOptions = [5, 10, 25, 50];
   showNotification: boolean = false
   showDeleteNotification: boolean = false
@@ -78,6 +81,9 @@ export class BoardGamesUserCollectionComponent {
   receiveSearchResults(results: BoardGame[]) {
     this.searchResults = results;
     this.showGamesList = false;
+    // this.currentPage = 0;
+    this.totalItemsResult = results.length;
+
     // this.boardGames = results;
     console.log('functia receive' + results)
     console.log(results.length)
@@ -156,6 +162,10 @@ export class BoardGamesUserCollectionComponent {
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
+  }
+  onPageChangeResult(event: PageEvent): void {
+    this.currentPageResult = event.pageIndex;
+    this.pageSizeResult = event.pageSize;
   }
 
   goBackToCollection():void{

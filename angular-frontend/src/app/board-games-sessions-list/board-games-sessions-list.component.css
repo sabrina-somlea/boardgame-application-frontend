@@ -2,3 +2,9 @@
 .disabled {
   background-color:rgb(248, 244, 244)
 }
+body{
+  background-image: url("../../assets/background.png");
+  background-size: cover; /* Setează dimensiunea imaginii pentru a acoperi întregul element */
+  background-repeat: no-repeat; /* Fă să nu se repete imaginea pe orizontală sau verticală */
+  /* alte proprietăți de stilizare */
+}

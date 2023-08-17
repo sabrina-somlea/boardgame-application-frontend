@@ -14,13 +14,6 @@ import {Router} from "@angular/router";
 })
 export class UserLoginComponent {
   loginUserData={}
-  // get username() {
-  //   return this.loginForm.get('username');
-  // }
-  // get password() {
-  //   return this.loginForm.get('password');
-  // }
-
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -28,28 +21,19 @@ export class UserLoginComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router) {
   }
   //
-  // ngOnInit(): void {
-  //   if (this.tokenStorage.getToken()) {
-  //     this.isLoggedIn = true;
-  //   }
-  // }
-
-
-  loginUser(){
-      // this.authService.loginUser(this.loginForm.get('password')?.value, this.passwordz);
+  ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.router.navigate(['/dashboard'])
     }
+  }
 
-  // loginForm: any = {
-  //   username: null,
-  //   password: null
-  // };
   loginForm: any = this.fb.group({
     username: ['', [Validators.required ]],
     password: ['', [Validators.required]],
   });
 
   login(username:string, password:string): void {
-    // const { username, password } = this.loginForm;
 
     this.authService.loginUser(username, password).subscribe(
       data => {
@@ -64,10 +48,13 @@ export class UserLoginComponent {
         this.router.navigate(['/dashboard']);
       },
       err => {
-        this.errorMessage = err.error.message;
+        if (err.status === 403) {
+          this.errorMessage = "Access denied: Invalid username or password!";
+        } else {
+          this.errorMessage = "An error occurred. Please try again later.";
+        }
         this.isLoginFailed = true;
-      }
-    );
+      });
   }
 
   reloadPage(): void {

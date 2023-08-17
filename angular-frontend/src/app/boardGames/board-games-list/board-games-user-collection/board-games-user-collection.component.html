@@ -31,7 +31,8 @@
   </thead>
   <tbody>
   <tr *ngFor="let boardgame of boardGames.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
-    <td>{{boardgame.name}}</td>
+    <td>{{boardgame.name}}
+      <br><img src="{{boardgame.image_url}}" alt="Game Image" style="width: 25%; height: 50%;"></td>
 <!--    <td [innerHtml]="boardgame.description"></td>-->
     <td>{{boardgame.year_published}}</td>
     <td>{{boardgame.min_players}}</td>
@@ -61,6 +62,7 @@
 
     <tr>
       <th>Name</th>
+<!--      <th>Image</th>-->
       <th>Year Published</th>
       <th>Minimum Players</th>
       <th>Maximum Players</th>
@@ -69,8 +71,9 @@
       <th>Actions</th>
     </tr>
     <tbody>
-    <tr *ngFor="let result of searchResults.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
-      <td>{{result.name}}</td>
+    <tr *ngFor="let result of searchResults.slice(currentPageResult * pageSizeResult, (currentPageResult + 1) * pageSizeResult)">
+      <td>{{result.name}} <br><img src="{{result.image_url}}" alt="Game Image" style="width: 25%; height: 50%;"></td>
+<!--      <td>  <img src="{{result.image_url}}" alt="Game Image"></td>-->
       <td>{{result.year_published}}</td>
       <td>{{result.min_players}}</td>
       <td>{{result.max_players}}</td>
@@ -136,7 +139,7 @@
   <button class="modal-close is-large" aria-label="close" (click)="closeModal()"></button>
 </div>
 
-
+<div *ngIf="showGamesList">
 <div class="pagination is-centered">
 <mat-paginator
   [length]="totalItems"
@@ -144,6 +147,17 @@
   [pageSizeOptions]="[5, 10, 25, 50]"
   (page)="onPageChange($event)"
 ></mat-paginator>
+</div>
+</div>
+<div *ngIf="!showGamesList">
+<div class="pagination is-centered">
+  <mat-paginator
+    [length]="totalItemsResult"
+    [pageSize]="pageSizeResult"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPageChangeResult($event)"
+  ></mat-paginator>
+</div>
 </div>
 <div *ngIf="!showGamesList" >
 <button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
