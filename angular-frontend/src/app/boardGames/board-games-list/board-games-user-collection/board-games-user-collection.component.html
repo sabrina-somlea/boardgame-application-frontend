@@ -1,7 +1,9 @@
 <app-header></app-header>
-<div>
+
+<div class="searchStyle">
   <app-board-games-search></app-board-games-search>
 </div>
+
 <div class="is-flex is-align-items-center is-justify-content-center">
 <div id="notification" class="notification is-info is-light" *ngIf="showNotification">
   <button class="delete" (click)="closeNotification()"></button>
@@ -41,21 +43,22 @@
     <td>{{boardgame.max_playtime}}</td>
     <td>
       <div class="buttons">
-        <button class="button is-danger is-small is-fullwidth" (click)="startDelete(boardgame)">Remove boardgame</button>
-        <button class="button is-info is-small is-fullwidth" (click)="showModal(boardgame)">See Description</button>
+        <button class="button is-danger is-small is-fullwidth is-outlined" (click)="startDelete(boardgame)">Remove boardgame</button>
+        <button class="button is-info is-small is-fullwidth is-outlined" (click)="showModal(boardgame)">See Description</button>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
 </div>
+
 <br>
 <div *ngIf="!showGamesList && searchResults && searchResults.length > 0">
   <div class="has-text-centered">
     <h2>{{ noResultsMessage }}</h2>
   </div>
   <br>
-  <button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
+  <button class="button is-success is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
   <br>
   <br>
   <table class="table is-hoverable is-bordered">
@@ -82,8 +85,8 @@
       <td>
         <div class="buttons">
           <div *ngIf=" !addedAlreadyToCollection(result)">
-          <button class="button is-info is-small is-fullwidth" (click)="addGameToCollection(username,result)">Add game to collection</button>
-            <button class="button is-info is-small is-fullwidth" (click)="showModal(result)">See Description</button>
+          <button class="button is-info is-small is-fullwidth is-outlined" (click)="addGameToCollection(username,result)">Add game to collection</button>
+            <button class="button is-success is-small is-fullwidth is-outlined" (click)="showModal(result)">See Description</button>
         </div>
           <div *ngIf=" addedAlreadyToCollection(result)">
             <button class="button is-info is-small" disabled>Game already added to collection</button>
@@ -160,5 +163,6 @@
 </div>
 </div>
 <div *ngIf="!showGamesList" >
-<button class="button is-info is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
+<button class="button is-success is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
 </div>
+

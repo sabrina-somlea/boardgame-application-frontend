@@ -1,1 +1,4 @@
 @import '~bulma/css/bulma.css';
+.box{
+  background-color:rgba(0,0,0,0.3)  ;
+}

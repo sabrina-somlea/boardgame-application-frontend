@@ -65,9 +65,9 @@ export class UserRegistrationComponent {
   }, {validator: PasswordValidator});
 
 
-  onSave(firstName: string, lastName: string, birthday: string, gender: string, email: string, username: string, password: string, profileImage: HTMLInputElement) {
+  onSave(firstName: string, lastName: string, birthday: string, gender: string, email: string, username: string, password: string) {
     // @ts-ignore
-    const user: User = {firstName, lastName, birthday, gender, email, username, password, profileImage};
+    const user: User = {firstName, lastName, birthday, gender, email, username, password};
     console.log("onSave: ", firstName, lastName, birthday, gender, email, username, password);
     this.usersService.saveUser(user)
       .subscribe(_ => {

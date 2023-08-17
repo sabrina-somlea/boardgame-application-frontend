@@ -50,7 +50,7 @@
 <!--</div>-->
 
 <div *ngIf="!isSearching && !onFriendsRequests">
-<div class="tile is-ancestor is-justify-content-center">
+<!--<div class="tile is-ancestor is-justify-content-center">-->
 <div class="tile is-ancestor is-justify-content-center">
   <div class="columns is-multiline ">
     <div class="column is-3" *ngFor="let friendGroup of friendsList">
@@ -66,12 +66,12 @@
     </div>
   </div>
 </div>
-</div>
+<!--</div>-->
 </div>
 
 <div *ngIf="isSearching && !onFriendsRequests">
   <div class="tile is-ancestor is-justify-content-center">
-    <div class="tile is-ancestor is-justify-content-center">
+<!--    <div class="tile is-ancestor is-justify-content-center">-->
       <div class="columns is-multiline ">
         <div class="column is-6" *ngFor="let friendGroup of userList">
           <!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
@@ -88,13 +88,13 @@
           </article>
         </div>
       </div>
-    </div>
+<!--    </div>-->
   </div>
 </div>
 
 <div *ngIf="onFriendsRequests">
   <div class="tile is-ancestor is-justify-content-center">
-    <div class="tile is-ancestor is-justify-content-center">
+<!--    <div class="tile is-ancestor is-justify-content-center">-->
       <div class="columns is-multiline ">
         <div class="column is-10" *ngFor="let friendGroup of userFriendsRequests">
           <!--      <article class="tile is-child box" *ngFor="let friend of friendsList">-->
@@ -108,7 +108,7 @@
           </article>
         </div>
       </div>
-    </div>
+<!--    </div>-->
   </div>
 </div>
 

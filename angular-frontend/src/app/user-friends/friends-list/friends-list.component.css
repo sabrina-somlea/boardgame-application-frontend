@@ -1,7 +1,13 @@
 @import '~bulma/css/bulma.css';
 body{
-  background-image: url("../../../assets/background.png");
+  background-image: url("../../../assets/friends3.png");
   background-size: cover; /* Setează dimensiunea imaginii pentru a acoperi întregul element */
   background-repeat: no-repeat; /* Fă să nu se repete imaginea pe orizontală sau verticală */
   /* alte proprietăți de stilizare */
+}
+.tile.is-ancestor{
+  margin-right: -0.2rem !important;
+}
+.columns{
+  margin-right: -0.2rem !important;
 }

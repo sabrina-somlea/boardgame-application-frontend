@@ -1,0 +1,10 @@
+@import '~bulma/css/bulma.css';
+body{
+  background-image: url("../../../assets/registration2.jpg");
+  background-size: cover; /* Setează dimensiunea imaginii pentru a acoperi întregul element */
+  background-repeat: no-repeat; /* Fă să nu se repete imaginea pe orizontală sau verticală */
+  /* alte proprietăți de stilizare */
+}
+/*.label{*/
+/*  color: #fff;*/
+/*}*/
