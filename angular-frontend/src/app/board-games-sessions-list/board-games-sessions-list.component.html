@@ -40,8 +40,10 @@
   <div class="column is-4" *ngFor="let session of boardGameSessionsList">
   <div class="box">
     <div class="control is-pulled-right">
+      <div class="buttons">
       <button class="button is-small is-primary" (click)="startUpdate(session)">Edit</button>
         <button class="button is-small is-warning" (click)="startDelete(session)">Delete</button>
+      </div>
     </div>
     <h2 class="title is-4">Session</h2>
     <div class="field">
@@ -80,7 +82,7 @@
   <div class="modal-content">
     <div class="box">
       <div class ="hero">
-        <div class="column  is-5">
+        <div class="column  is-7">
           <!--<div class="form-container">-->
           <h2 class="title is-2">Session</h2>
 <!--          <form (submit)="updateBoardGameSession()">-->
@@ -135,8 +137,8 @@
             <div class="field">
               <label class="label">Players:</label>
               <div class="columns is-multiline">
-                <div class="column is-one-quarter" *ngFor="let player of newSession.players; let i = index">
-                  <div class="box">
+                <div class="column is-6" *ngFor="let player of newSession.players; let i = index">
+                  <div class="box is-9">
                     {{ player?.firstName }} {{ player?.lastName }}
                     <button class="button is-small is-danger" (click)="removePlayerFromSession(i)">Delete player</button>
                   </div>
@@ -161,9 +163,10 @@
               </div>
             </div>
           <p>Do you really want to update this session?</p>
+          <br>
           <div class ="buttons">
-            <button class="button is-danger" type="submit" (click)="confirmUpdate()">Yes</button>
-            <button class ="button is-link" (click)="cancelUpdate()">No</button>
+            <button class="button is-danger is-small" type="submit" (click)="confirmUpdate()">Yes</button>
+            <button class ="button is-link is-small" (click)="cancelUpdate()">No</button>
           </div>
 
     </div>
@@ -175,12 +178,15 @@
 <div id="delete" class="modal" [ngClass]="{'is-active': markedForDeletion !==undefined}">
   <div class="modal-background"></div>
 
-  <div class="modal-content">
-    <div class="box">
-      <p>Do you really want to delete this session game?</p>
-      <div class ="buttons">
-        <button class ="button is-danger" (click)="confirmDelete()">Yes</button>
-        <button class ="button is-link" (click)="cancelDelete()">No</button>
+  <div class="modal-content is-4">
+    <div class="box is-4">
+      <div class="text has-text-centered">
+      <p><b>Are you sure you want to delete this board game session?</b></p>
+      <br>
+      <div class ="buttons is-centered">
+        <button class ="button is-danger is-small" (click)="confirmDelete()">Yes</button>
+        <button class ="button is-link is-small" (click)="cancelDelete()">No</button>
+      </div>
       </div>
     </div>
 

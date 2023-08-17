@@ -1,17 +1,23 @@
 <app-header></app-header>
  <div *ngIf="currentUser"class="container">
-  <h1 class="title">Profilul utilizatorului</h1>
+   <form #userForm="ngForm">
   <div class="content">
     <div class="field">
-      <label class="label">Nume:</label>
+      <label class="label">Name:</label>
       <div class="control">
-        <input class="input" type="text" [(ngModel)]="editedUser.lastName" [readonly]="!isEditing">
+        <input class="input" type="text" [(ngModel)]="editedUser.lastName" [readonly]="!isEditing" name="lastName" required>
+      </div>
+      <div class="field" *ngIf="isEditing && userForm.controls['lastName'].hasError('required')">
+        <p class="help is-danger">Last name is required.</p>
       </div>
     </div>
     <div class="field">
-      <label class="label">Prenume:</label>
+      <label class="label">Firstname:</label>
       <div class="control">
-        <input class="input" type="text" [(ngModel)]="editedUser.firstName" [readonly]="!isEditing">
+        <input class="input" type="text" [(ngModel)]="editedUser.firstName" [readonly]="!isEditing" name="firstName" required>
+      </div>
+      <div class="field" *ngIf="isEditing && userForm.controls['firstName'].hasError('required')">
+        <p class="help is-danger">First name is required.</p>
       </div>
     </div>
     <div class="field">
@@ -23,29 +29,37 @@
     <div class="field">
       <label class="label">Email:</label>
       <div class="control">
-        <input class="input" type="email" [(ngModel)]="editedUser.email" [readonly]="!isEditing">
+        <input class="input" type="email" [(ngModel)]="editedUser.email" [readonly]="!isEditing" name="email" required>
+      </div>
+      <div class="field" *ngIf="isEditing && userForm.controls['email'].hasError('required')">
+        <p class="help is-danger">Email is required.</p>
       </div>
     </div>
     <div class="field">
-      <label class="label">Data nașterii:</label>
+      <label class="label">Birthdate:</label>
       <div class="control">
-        <input class="input" type="date" [(ngModel)]="editedUser.birthday" [readonly]="!isEditing">
+        <input class="input" type="date" [(ngModel)]="editedUser.birthday" [readonly]="!isEditing" name="birthdate" required>
+      </div>
+      <div class="field" *ngIf="isEditing && userForm.controls['birthdate'].hasError('required')">
+        <p class="help is-danger">Birthdate is required.</p>
       </div>
     </div>
     <div class="field">
       <label class="label">Sex:</label>
       <div class="control">
-        <input class="input" type="text" [(ngModel)]="editedUser.gender" [readonly]="!isEditing">
+        <input class="input" type="text" [(ngModel)]="editedUser.gender" [readonly]="!isEditing" name="sex">
       </div>
     </div>
 
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-primary" (click)="toggleEdit()" *ngIf="!isEditing">Editare</button>
-        <button class="button is-success" (click)="saveChanges()" *ngIf="isEditing">Salvare</button>
+        <button class="button is-primary" (click)="toggleEdit()" *ngIf="!isEditing">Edit</button>
+        <button class="button is-success" (click)="saveChanges()" *ngIf="isEditing" [disabled]="!userForm.valid">Save</button>
       </div>
     </div>
   </div>
+
+   </form>
 </div>
 
 <!--password change-->
@@ -56,14 +70,14 @@
     <div class="field">
 
       <label for="oldPassword">Old Password:</label>
-      <input type="password" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword">
+      <input class="input" type="password" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword">
     </div>
     <div>
       <label for="newPassword">New Password:</label>
-      <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword">
+      <input class="input" type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword">
     </div>
     <br>
-    <button mat-raised-button color="primary"type="submit">Update Password</button>
+    <button class="button is-primary is-small"type="submit">Update Password</button>
 
     <div class="notification is-info is-light" *ngIf="showNotification">
       <button class="delete" (click)="closeNotification()"></button>

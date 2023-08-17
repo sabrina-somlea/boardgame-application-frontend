@@ -3,26 +3,28 @@
   <div class="column  is-5">
 <!--<div class="form-container">-->
   <h2 class="title is-2">Session</h2>
-  <form (submit)="addBoardGameSession()">
+  <form  (submit)="addBoardGameSession()">
 
     <div class="field">
       <label class="label">Session Date:</label>
       <div class="control">
-        <input class="input" type="date" [(ngModel)]="newSession.sessionDate " name="sessionDate">
+        <input class="input" type="date" [(ngModel)]="newSession.sessionDate " name="sessionDate" >
       </div>
     </div>
 
     <div class="field">
       <label class="label">BoardGame:</label>
       <div class="control">
-        <input class="input" type="text" id="boardGameSelect" (input)="handleFilterBoardGames($event)" />
+        <input class="input" type="text" id="boardGameSelect"  (input)="handleFilterBoardGames($event)"formControlName="BoardGameName" />
       </div>
+
       <div *ngIf="showDropdownGames && filteredGames.length > 0" class="dropdown is-active">
         <div class="dropdown-menu">
           <div class="dropdown-content">
-            <a *ngFor="let boardGame of filteredGames" class="dropdown-item" (click)="handleAddBoardGame(boardGame)">
+            <a *ngFor="let boardGame of filteredGames"  class="dropdown-item" (click)="handleAddBoardGame(boardGame)">
               {{ boardGame.name }}
             </a>
+
           </div>
         </div>
       </div>
@@ -81,7 +83,7 @@
 
     <div class="field">
       <div class="control">
-        <button class="button is-primary" type="submit">Submit</button>
+        <button class="button is-primary" type="submit" [disabled]="!areAllFieldsCompleted()" >Submit</button>
       </div>
     </div>
 

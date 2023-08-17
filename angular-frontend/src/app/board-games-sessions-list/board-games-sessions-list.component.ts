@@ -287,6 +287,10 @@ export class BoardGamesSessionsListComponent {
           session.sessionDate = date;
       });
   })
+    }
+
 }
-}
+
+
+
 

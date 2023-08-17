@@ -8,6 +8,7 @@ import {BoardGame} from "../models/boardGames.model";
 import {Router} from "@angular/router";
 import {BoardGamesSessionsService} from "../services/boardGamesSessions.service";
 import {BoardGamesService} from "../services/boardGames.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-board-games-sessions',
@@ -16,7 +17,7 @@ import {BoardGamesService} from "../services/boardGames.service";
 })
 export class BoardGamesSessionsComponent {
 
-
+  // userForm: FormGroup;
   newSession: BoardGameSessionModel = {
     sessionDate: '',
     boardGame: {
@@ -54,8 +55,15 @@ export class BoardGamesSessionsComponent {
   showDropdownGames: boolean = false;
   showGameDeleteButton: boolean = false;
   currentUser: any;
-  constructor(private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
+  isFormValid = false;
+  constructor(private fb: FormBuilder,private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
+  //   this.userForm = this.fb.group({
+  //     sessionDate: ['', [Validators.required]]
+  // })
+
   }
+
+
 
   ngOnInit(): void {
     const username = this.tokenStorageService.getUser()
@@ -63,6 +71,7 @@ export class BoardGamesSessionsComponent {
     this.getFriendsList(username);
     console.log(this.friendsList);
     this.loadUserCollection(username)
+    console.log(this.newSession.sessionDate)
   }
 
   getFriendsList(username: string) {
@@ -88,9 +97,13 @@ export class BoardGamesSessionsComponent {
   filteredGames: BoardGame[] = [];
   selectedPlayers: User[] = [];
 
-// maxPlayers: number;
-
-
+  areAllFieldsCompleted(): boolean {
+    console.log(this.newSession.sessionDate)
+    return !!this.newSession.boardGame &&
+      !!this.newSession.winner &&
+      !!this.newSession.players &&
+    !!this.newSession.sessionDate
+  }
   addBoardGameSession() {
     console.log(this.newSession)
     this.boardGamesSessionService

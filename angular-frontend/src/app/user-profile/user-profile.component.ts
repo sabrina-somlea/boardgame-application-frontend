@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {UsersService} from "../services/users.service";
 import {User} from "../models/users.model";
 import {Observable} from "rxjs";
+import {NgForm} from "@angular/forms";
+import * as moment from "moment/moment";
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +19,7 @@ export class UserProfileComponent {
   newPassword: string = ''
   showNotification: boolean = false
   constructor(private userService: UsersService) { }
-
+  @ViewChild('userForm', { static: false }) userForm: NgForm | undefined;
   ngOnInit(): void {
     // this.currentUser$ = this.userService.getUserInfo();
    this.viewUserDetails()
@@ -27,10 +29,13 @@ export class UserProfileComponent {
   viewUserDetails(): void{
     this.userService.getUserInfo().subscribe(
       (user: User) => {
+        const date = moment(user.birthday).format('YYYY-MM-DD');
+        user.birthday = date;
         this.currentUser = user;
         this.editedUser = { ...user };
         console.log(this.currentUser)
         console.log(this.editedUser)
+
   },
       (error: any) => {
         console.error('Could not get user info', error);
@@ -39,18 +44,21 @@ export class UserProfileComponent {
 
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
-    this.editedUser = { ...this.currentUser }; // copiem datele utilizatorului pentru a le edita separat
+    this.editedUser = { ...this.currentUser };
   }
 
   saveChanges(): void {
-    this.userService.updateUserInfo(this.editedUser).subscribe(
-      (user: User) => {
-        this.currentUser = user; // Actualizăm currentUser cu datele utilizatorului actualizat din server
-        this.isEditing = false;
-      },
-      (error: any) => {
-        console.error('Eroare la salvarea detaliilor utilizatorului:', error);
-      });
+    if (this.userForm?.valid) {
+      this.userService.updateUserInfo(this.editedUser).subscribe(
+        (user: User) => {
+          this.currentUser = user;
+          this.isEditing = false;
+        },
+        (error: any) => {
+          console.error('Eroare la salvarea detaliilor utilizatorului:', error);
+        }
+      );
+    }
   }
 
   updatePassword() {
