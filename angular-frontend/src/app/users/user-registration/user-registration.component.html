@@ -93,6 +93,10 @@
   </form>
     </div>
   </div>
+
+  <div class="notification is-info is-light" *ngIf="showNotification">
+    You have successfully signed up! Click <a routerLink="/">here</a> to login!
+  </div>
   <!--  {{registrationForm.value | json}}-->
 </div>
 </body>

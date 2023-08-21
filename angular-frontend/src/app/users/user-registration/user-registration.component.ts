@@ -19,7 +19,7 @@ export class UserRegistrationComponent {
   namePattern = "[a-zA-Z- ]*";
   userPattern = "[a-zA-Z0-9_ -.]*";
   profileImage: File | null = null;
-
+  showNotification: boolean = false
   get firstName() {
     return this.registrationForm.get('firstName');
   }
@@ -60,7 +60,6 @@ export class UserRegistrationComponent {
     username: ['', [Validators.required, Validators.pattern(this.userPattern), Validators.maxLength(50)], [this.usersService.usernameValidator()] ],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
-    profileImage: [null]
 
   }, {validator: PasswordValidator});
 
@@ -72,6 +71,7 @@ export class UserRegistrationComponent {
     this.usersService.saveUser(user)
       .subscribe(_ => {
         console.log("Ok");
+        this.showNotification = true;
       });
 }
   ngOnInit() {

@@ -17,7 +17,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class BoardGamesSessionsComponent {
 
-  // userForm: FormGroup;
+  userForm: FormGroup;
   newSession: BoardGameSessionModel = {
     sessionDate: '',
     boardGame: {
@@ -57,9 +57,12 @@ export class BoardGamesSessionsComponent {
   currentUser: any;
   isFormValid = false;
   constructor(private fb: FormBuilder,private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
-  //   this.userForm = this.fb.group({
-  //     sessionDate: ['', [Validators.required]]
-  // })
+    this.userForm = this.fb.group({
+      sessionDate: ['', Validators.required],
+      boardGameName: ['', Validators.required],
+      playerSelect: ['', Validators.required],
+      winner:['', Validators.required]
+    });
 
   }
 
@@ -72,6 +75,7 @@ export class BoardGamesSessionsComponent {
     console.log(this.friendsList);
     this.loadUserCollection(username)
     console.log(this.newSession.sessionDate)
+
   }
 
   getFriendsList(username: string) {
@@ -98,11 +102,20 @@ export class BoardGamesSessionsComponent {
   selectedPlayers: User[] = [];
 
   areAllFieldsCompleted(): boolean {
-    console.log(this.newSession.sessionDate)
-    return !!this.newSession.boardGame &&
+    console.log('boardGame:', this.newSession.boardGame);
+    console.log('winner:', this.newSession.winner);
+    console.log('players:', this.newSession.players);
+    console.log('sessionDate:', this.newSession.sessionDate);
+
+    const isCompleted = !!this.newSession.boardGame &&
       !!this.newSession.winner &&
       !!this.newSession.players &&
-    !!this.newSession.sessionDate
+      !!this.newSession.sessionDate;
+
+    console.log('isCompleted:', isCompleted);
+    console.log(this.newSession)
+
+    return isCompleted;
   }
   addBoardGameSession() {
     console.log(this.newSession)

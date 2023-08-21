@@ -8,6 +8,18 @@ body{
 .tile.is-ancestor{
   margin-right: -0.2rem !important;
 }
-.columns{
+/*.columns{*/
+/*  margin-right: -0.2rem !important;*/
+/*}*/
+.margins{
+  margin-right: 50rem;
+}
+.columns2{
   margin-right: -0.2rem !important;
+  margin-left: 10rem !important;
+}
+
+.columns3{
+  margin-right: 10rem !important;
+  margin-left: 28rem !important;
 }

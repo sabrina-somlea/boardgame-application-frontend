@@ -1,0 +1,33 @@
+@import '~bulma/css/bulma.css';
+body{
+  background-image: url("../../assets/still-life-figurine-with-dices.jpg");
+  background-size: cover; /*
+  background-repeat: no-repeat;
+  /* alte proprietăți de stilizare */
+}
+.typewriter h1 {
+  color: #010102;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .10em; /* Adjust as needed */
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  animation:
+    typing 3.7s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+

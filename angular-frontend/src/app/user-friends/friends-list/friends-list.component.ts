@@ -5,6 +5,7 @@ import {BoardGamesService} from "../../services/boardGames.service";
 import {UsersService} from "../../services/users.service";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {UserFriendsService} from "../../services/user-friends.service";
+import * as moment from "moment/moment";
 
 @Component({
   selector: 'app-friends-list',
@@ -33,7 +34,8 @@ export class FriendsListComponent {
   }
  getFriendsList(username: string):void {
     this.userFriendsService.viewUserFriends(this.tokenStorageService.getUser())
-      .subscribe((data: User[])=> { this.friendsList = data});
+      .subscribe((data: User[])=> { this.friendsList = data
+      });
     this.isSearching=false;
     this.onFriendsRequests=false;
    this.onFriendsRequestsSent = false;
@@ -44,6 +46,9 @@ export class FriendsListComponent {
     return this.friendsList.length;
   }
 
+  getTotalFriendsRequestsCount(): number {
+    return this.userFriendsRequests.length;
+  }
  searchFriends(username: string):void {
     this.userFriendsService.searchFriends(username)
       .subscribe((data: User[])=> { this.userList = data});

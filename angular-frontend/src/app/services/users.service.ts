@@ -113,5 +113,39 @@ export class UsersService {
     return this.httpClient.put(`http://localhost:8080/api/v1/users/id=${userId}`, body, {headers});
   }
 
+  getTopPlayedGames(username: String): Observable<any> {
+    const url = `http://localhost:8080/api/v1/${username}/top-games`;
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get(url, {headers});
+  }
+
+  getBoardGameSessionsPlayed(userId: String | undefined): Observable<any> {
+  const url = `http://localhost:8080/api/v1/${userId}/played-sessions-count`;
+  const token = this.tokenStorageService.getToken();
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.httpClient.get(url, {headers});
+}
+
+  getBoardGameSessionsWon(userId: String | undefined): Observable<any> {
+    const url = `http://localhost:8080/api/v1/${userId}/won-sessions-count`;
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get(url, {headers});
+  }
+
+  getUserFriendsNumber(userId: String | undefined): Observable<any> {
+    const url = `http://localhost:8080/api/v1/${userId}/friends-count`;
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get(url, {headers});
+  }
+
+  getUserBoardGamesNumber(userId: String | undefined): Observable<any> {
+    const url = `http://localhost:8080/api/v1/${userId}/boardgames-count`;
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get(url, {headers});
+  }
 }
 

@@ -10,7 +10,7 @@
 }
 .searchStyle{
   background-image: url("../../../../assets/dice3.jpg");
-  background-size: cover; /* Setează dimensiunea imaginii pentru a acoperi întregul element */
-  background-repeat: no-repeat; /* Fă să nu se repete imaginea pe orizontală sau verticală */
+  background-size: cover; /*
+
   /* alte proprietăți de stilizare */
 }

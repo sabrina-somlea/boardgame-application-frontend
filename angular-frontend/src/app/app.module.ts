@@ -33,6 +33,7 @@ import { BoardGamesSessionsListComponent } from './board-games-sessions-list/boa
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { FriendsProfileComponent } from './user-friends/friends-profile/friends-profile.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     BoardGamesSessionsComponent,
     BoardGamesSessionsListComponent,
     UserProfileComponent,
+    FriendsProfileComponent,
   ],
   imports: [
     BrowserModule,
