@@ -8,7 +8,7 @@
     <div class="field">
       <label class="label">Session Date:</label>
       <div class="control">
-        <input class="input" type="date" [(ngModel)]="newSession.sessionDate " name="sessionDate"  >
+        <input class="input" type="date"  max="{{maxDate}}"[(ngModel)]="newSession.sessionDate" name="sessionDate"  >
       </div>
     </div>
 
@@ -83,7 +83,10 @@
 
     <div class="field">
       <div class="control">
-        <button class="button is-primary" type="submit" [disabled]="!areAllFieldsCompleted()" >Submit</button>
+        <div class = "buttons">
+        <button class="button is-dark" type="submit" [disabled]="!areAllFieldsCompleted()" >Submit</button>
+          <button class="button is-warning" (click)="cancel()">Go back to sessions</button>
+      </div>
       </div>
     </div>
 

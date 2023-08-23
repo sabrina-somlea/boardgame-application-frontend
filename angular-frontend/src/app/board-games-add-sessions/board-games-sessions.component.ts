@@ -16,7 +16,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./board-games-sessions.component.css']
 })
 export class BoardGamesSessionsComponent {
-
+  maxDate:any;
+  minDate:any;
   userForm: FormGroup;
   newSession: BoardGameSessionModel = {
     sessionDate: '',
@@ -74,7 +75,7 @@ export class BoardGamesSessionsComponent {
     this.getFriendsList(username);
     console.log(this.friendsList);
     this.loadUserCollection(username)
-    console.log(this.newSession.sessionDate)
+    this.futureDateDisable()
 
   }
 
@@ -108,8 +109,8 @@ export class BoardGamesSessionsComponent {
     console.log('sessionDate:', this.newSession.sessionDate);
 
     const isCompleted = !!this.newSession.boardGame &&
-      !!this.newSession.winner &&
-      !!this.newSession.players &&
+      !!this.newSession.winner.id &&
+      this.newSession.players.length > 0 &&
       !!this.newSession.sessionDate;
 
     console.log('isCompleted:', isCompleted);
@@ -123,12 +124,12 @@ export class BoardGamesSessionsComponent {
       .addBoardGameSession(this.newSession)
       .subscribe((data: BoardGameSessionModel) => {
         alert("New session added successfully!");
-        this.router.navigate(['/boardgames']);
+        this.router.navigate(['/boardGamesSessionList']);
       })
   }
 
   cancel(): void {
-    this.router.navigate(['/boardgames']);
+    this.router.navigate(['/boardGamesSessionList']);
   }
 
 
@@ -158,8 +159,6 @@ export class BoardGamesSessionsComponent {
 
   handleFilterPlayers(event: any) {
     const searchQuery = event.target.value.toLowerCase();
-    //de implementat detaliile user
-    // this.friendsList.push(this.tokenStorageService.getUser())
     console.log(this.friendsList)
     this.filteredPlayers = this.friendsList.filter(
       (player) =>
@@ -229,5 +228,21 @@ export class BoardGamesSessionsComponent {
       (error: any) => {
         console.error('Could not get user info', error);
       })
+  }
+
+  futureDateDisable(){
+    let date:any = new Date();
+    let todayDate:any= date.getDate();
+    let month:any=date.getMonth() + 1;
+    let year:any =date.getFullYear();
+
+    if(todayDate < 10){
+      todayDate = "0" + todayDate;
+    }
+    if(month < 10){
+      month = "0" + month;
+    }
+    this.maxDate = year + "-" + month + "-" + todayDate;
+    console.log(this.maxDate);
   }
 }

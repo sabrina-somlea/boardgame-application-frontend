@@ -85,8 +85,8 @@
       <td>
         <div class="buttons">
           <div *ngIf=" !addedAlreadyToCollection(result)">
-          <button class="button is-info is-small is-fullwidth is-outlined" (click)="addGameToCollection(username,result)">Add game to collection</button>
-            <button class="button is-success is-small is-fullwidth is-outlined" (click)="showModal(result)">See Description</button>
+          <button class="button is-info is-small is-half-widescreen is-outlined" (click)="addGameToCollection(username,result)">Add game to collection</button>
+            <button class="button is-success is-small is-half-widescreen is-outlined" (click)="showModal(result)">See Game Description </button>
         </div>
           <div *ngIf=" addedAlreadyToCollection(result)">
             <button class="button is-info is-small" disabled>Game already added to collection</button>

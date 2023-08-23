@@ -31,9 +31,11 @@
   </div>
 </div>
 </div>
-
-<button class="button is-info"(click)="filterBoardGameSessions()">Filter sessions</button>
-  <a [routerLink]="['/add-session']" class="button is-primary is-light">Add new session</a>
+<div class="buttons">
+<button class="button is-warning is-small"(click)="filterBoardGameSessions()">Filter sessions</button>
+  <a [routerLink]="['/add-session']" class="button is-dark is-small">Add new session</a>
+  <button class="button is-warning is-small"(click)="getBoardGamesSessionsList()">Reset filter</button>
+</div>
 </div>
 <div class ="hero-body">
   <div class="columns is-multiline ">

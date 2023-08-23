@@ -99,7 +99,7 @@ export class BoardGamesSessionsListComponent {
   ngOnInit(): void {
     const username = this.tokenStorageService.getUser()
     this.viewUserDetails();
-    this.getBoardGamesSessionsList(username);
+    this.getBoardGamesSessionsList();
 
     console.log(this.boardGameSessionsList);
     this.getFriendsList(username);
@@ -107,7 +107,7 @@ export class BoardGamesSessionsListComponent {
 
   }
 
-  getBoardGamesSessionsList(username: string) {
+  getBoardGamesSessionsList() {
     this.boardGamesSessionService.getBoardGamesSessionsByUsername(this.tokenStorageService.getUser())
       .subscribe((data: BoardGameSessionModel[]) => {
         this.boardGameSessionsList = data;
@@ -137,7 +137,7 @@ export class BoardGamesSessionsListComponent {
           console.log(this.updateBoardGameSession)
           this.markedForUpdate = undefined;
           const username = this.tokenStorageService.getUser()
-          this.getBoardGamesSessionsList(username);
+          this.getBoardGamesSessionsList();
         });
     }
   }
@@ -257,7 +257,7 @@ export class BoardGamesSessionsListComponent {
           alert('Board Game removed successfully!');
           this.markedForDeletion = undefined;
           const username = this.tokenStorageService.getUser()
-          this.getBoardGamesSessionsList(username);
+          this.getBoardGamesSessionsList();
           //notification
         });
     }

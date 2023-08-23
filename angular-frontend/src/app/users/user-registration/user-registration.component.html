@@ -41,8 +41,8 @@
 
     <div class="form-group">
       <label class="label">Gender</label>
-      <input #genderInput type ="radio" name="gender" formControlName="gender" value="1"> Male
-      <input #genderInput type="radio" name="gender" formControlName="gender" value="0"> Female
+      <input #genderInput type ="radio" name="gender" formControlName="gender" value="0"> Male
+      <input #genderInput type="radio" name="gender" formControlName="gender" value="1"> Female
       <div *ngIf ="gender?.invalid && gender?.touched">
         <small *ngIf="gender?.errors?.['required']" class ="help is-danger"> Gender is required</small>
       </div>
