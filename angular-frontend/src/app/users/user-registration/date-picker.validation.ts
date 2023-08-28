@@ -1,20 +1,4 @@
-// import {Component} from '@angular/core';
-//
-// @Component({
-//   selector: 'date-picker.validation',
-//   templateUrl: './user-registration.component.html',
-// })
-// export class DatePickerValidation {
-//   minDate: Date;
-//   maxDate: Date;
-//
-//   constructor() {
-//     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
-//     const currentDate = new Date()
-//     this.minDate = new Date( - 150, 0, 1);
-//     this.maxDate = new Date( + 0, 0, +1);
-//   }
-//   }
+
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 
 export function dateValidator(): ValidatorFn {
