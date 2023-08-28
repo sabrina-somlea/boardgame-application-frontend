@@ -54,13 +54,16 @@
 
 <br>
 <div *ngIf="!showGamesList && searchResults && searchResults.length > 0">
-  <div class="has-text-centered">
-    <h2>{{ noResultsMessage }}</h2>
+  <div  class="has-text-centered">
+  <h2> {{ noResultsMessage }} Not what you are looking for? Click <a routerLink="/boardgames/add">here</a> to add a new board game</h2>
+
   </div>
+
   <br>
   <button class="button is-success is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
   <br>
   <br>
+
   <table class="table is-hoverable is-bordered">
 
     <tr>
@@ -105,7 +108,7 @@
 
 <div *ngIf="!showGamesList && searchResults && searchResults.length === 0">
   <div class="has-text-centered">
-    <h2>{{ noResultsMessage }}</h2>
+    <h2>{{ noResultsMessage }} Click <a routerLink="/boardgames/add">here</a> to add a new board game</h2>
   </div>
 </div>
 
@@ -165,4 +168,6 @@
 <div *ngIf="!showGamesList" >
 <button class="button is-success is-small" (click)="goBackToCollection()">Go back to your BoardGame collection</button>
 </div>
+<div *ngIf ="redirectLink">Click <a routerLink="/boardgames/add">here</a> to add a new board game</div>
+
 

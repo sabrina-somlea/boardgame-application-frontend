@@ -1,79 +1,114 @@
-<form (submit)="addBoardGame()">
+<body>
+<div class="column is-5 ">
+  <div class="box">
+<!--<form (submit)="addBoardGame()" #boardGameForm="ngForm">-->
+    <form [formGroup]="boardGameForm" (submit)="addBoardGame()" >
   <div class="field">
-    <input class="input" type="text" style="width: 15%;"
-           [(ngModel)]="boardGame.name"
-           name="Name"
-           placeholder="Name"
-
-    />
-  </div>
-  <div class="field">
-    <label class="label">Description: </label>
-    <input class="input"
-           type="text" style="width: 15%;"
-           [(ngModel)]="boardGame.description"
-           name="description"
-           placeholder="description"
-    />
-  </div>
-
-  <div class="field">
-    <label>Year Published:</label>
-    <input class="input"
-           type="number" style="width: 15%;"
-           [(ngModel)]="boardGame.year_published"
-           placeholder="Year Published"
-           name="Year Published"
-    />
-  </div>
-
-  <div class="field">
-    <label>Minimum Players:</label>
-    <input class="input"
-           type="text" style="width: 15%;"
-           [(ngModel)]="boardGame.min_players"
-           placeholder="Minimum Players"
-           name="Minimum Players"
-    />
-  </div>
-
-  <div class="field">
-    <label>Maximum Players: </label>
-    <input class="input"
-           type="text" style="width: 15%;"
-           [(ngModel)]="boardGame.max_players"
-           name="Maximum Players"
-           placeholder="Maximum Players"
-    />
-  </div>
-
-  <div class="field">
-    <label>Minimum Play time: </label>
-    <input class="input"
-           type="number" style="width: 15%;"
-           [(ngModel)]="boardGame.min_playtime"
-           name="Minimum Play time:"
-           placeholder="Minimum Play time:"
-    />
-  </div>
-
-  <div class="field">
-    <label>Maximum Play time: </label>
-    <input class="input"
-           type="text" style="width: 15%;"
-           [(ngModel)]="boardGame.max_playtime"
-           name="Maximum Play time"
-           placeholder="Maximum Play time"
-    />
-  </div>
-  <div class="button-container">
-    <div>
-      <button class="button is-primary is-light" type="submit">Add</button>
+    <label class="label">Name:</label>
+    <div class="control">
+      <input class="input" [class.is-danger]="boardGameForm.controls['name'].invalid
+      && boardGameForm.controls['name'].touched" type="text" formControlName="name"  placeholder="Name">
+      <div *ngIf ="boardGameForm.controls['name'].invalid && boardGameForm.controls['name'].touched">
+        <small *ngIf="boardGameForm.controls['name'].errors?.['required']" class ="help is-danger"> Name is required</small>
+<!--    </div>-->
+<!--      <p class="help is-danger">Name is required.</p>-->
     </div>
+<!--  </div>-->
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Description:</label>
+    <div class="control">
+      <input class="input" type="text" [class.is-danger]="boardGameForm.controls['Description'].invalid
+      && boardGameForm.controls['Description'].touched" type="text" formControlName="Description" placeholder="Description">
+      <div *ngIf ="boardGameForm.controls['Description'].invalid && boardGameForm.controls['Description'].touched">
+        <small *ngIf="boardGameForm.controls['Description'].errors?.['required']" class ="help is-danger"> Description is required</small>
+        </div>
+    </div>
+  </div>
 
-    <div>
-      <button (click)="cancel()" class="button reset">Cancel, go back</button>
+  <div class="field">
+    <label class="label">Year Published:</label>
+    <div class="control">
+      <input class="input" type="number" [class.is-danger]="boardGameForm.controls['YearPublished'].invalid
+      && boardGameForm.controls['YearPublished'].touched" type="text" formControlName="YearPublished" placeholder="Year Published">
+      <div *ngIf ="boardGameForm.controls['YearPublished'].invalid && boardGameForm.controls['YearPublished'].touched">
+        <small *ngIf="boardGameForm.controls['YearPublished'].errors?.['required']" class ="help is-danger"> Year is required</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Minimum Players:</label>
+    <div class="control">
+      <input class="input" type="number" [class.is-danger]="boardGameForm.controls['MinPlayers'].invalid
+      && boardGameForm.controls['MinPlayers'].touched" type="text" formControlName="MinPlayers" placeholder="Minimum Players">
+      <div *ngIf ="boardGameForm.controls['MinPlayers'].invalid && boardGameForm.controls['MinPlayers'].touched">
+        <small *ngIf="boardGameForm.controls['MinPlayers'].errors?.['required']" class ="help is-danger"> Minimum player number is required</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Maximum Players:</label>
+    <div class="control">
+      <input class="input" type="number" [class.is-danger]="boardGameForm.controls['MaxPlayers'].invalid
+      && boardGameForm.controls['MaxPlayers'].touched" type="text" formControlName="MaxPlayers" placeholder="Maximum Players">
+      <div *ngIf ="boardGameForm.controls['MaxPlayers'].invalid && boardGameForm.controls['MaxPlayers'].touched">
+        <small *ngIf="boardGameForm.controls['MaxPlayers'].errors?.['required']" class ="help is-danger"> Maximum player number is required</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Minimum Play time:</label>
+    <div class="control">
+      <input class="input" type="number" [class.is-danger]="boardGameForm.controls['MinPlayTime'].invalid
+      && boardGameForm.controls['MinPlayTime'].touched" type="text" formControlName="MinPlayTime" placeholder="Minimum Play time">
+      <div *ngIf ="boardGameForm.controls['MinPlayTime'].invalid && boardGameForm.controls['MinPlayTime'].touched">
+        <small *ngIf="boardGameForm.controls['MinPlayTime'].errors?.['required']" class ="help is-danger"> Minimum play time is required</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Maximum Play time:</label>
+    <div class="control">
+      <input class="input" type="number" [class.is-danger]="boardGameForm.controls['MaxPlayTime'].invalid
+      && boardGameForm.controls['Description'].touched" type="text" formControlName="MaxPlayTime" placeholder="Maximum Play time">
+      <div *ngIf ="boardGameForm.controls['MaxPlayTime'].invalid && boardGameForm.controls['MaxPlayTime'].touched">
+        <small *ngIf="boardGameForm.controls['MaxPlayTime'].errors?.['required']" class ="help is-danger"> Maximum play time is required</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-primary" type="submit" [disabled]="!boardGameForm.valid">Add</button>
+    </div>
+    <div class="control">
+      <button (click)="cancel()" class="button is-link">Cancel, go back</button>
     </div>
   </div>
 </form>
+  </div>
+</div>
+</body>
 
+<div id="deleteConfirmation" class="modal" [ngClass]="{'is-active': showActionConfirmation}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content is-4">
+    <div class="box is-4">
+      <div class="text has-text-centered">
+        <p><b>{{actionMessage}}</b></p>
+        <br>
+        <div class ="buttons is-centered">
+          <button class ="button is-link is-small" (click)="cancelActionModal()">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelActionModal()"></button>
+  </div>
+</div>

@@ -112,27 +112,7 @@ maxDate:any;
     console.log(this.maxDate);
   }
 
-  onFileSelected(event: any) {
-      this.profileImage = event.target.files[0];
 
-    // if (this.profileImage) {
-    //   const reader = new FileReader();
-    //
-    //   // Înregistrăm un eveniment pentru când citirea fișierului s-a terminat
-    //   reader.onload = (event) => {
-    //     const result = reader.result as ArrayBuffer;
-    //     const imageBytes = new Uint8Array(result);
-    //     console.log('Imaginea convertită în bytes:', imageBytes);
-    //     this.registrationForm.patchValue({
-    //       profileImage: imageBytes
-    //     });
-    //     // Aici poți face orice altceva cu imaginea în bytes, de exemplu, o poți trimite către backend
-    //   };
-    //
-    //   // Citim fișierul ca un șir de octeți (bytes array)
-    //   reader.readAsArrayBuffer(this.profileImage);
-    // }
-    };
 
 
 }

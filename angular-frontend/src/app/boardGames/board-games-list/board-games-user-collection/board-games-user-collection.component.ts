@@ -20,6 +20,7 @@ export class BoardGamesUserCollectionComponent {
   markedForDescription: BoardGame | undefined;
   searchResults: BoardGame[] = []
   noResultsMessage: string = "";
+  redirectLink: boolean = false;
   showGamesList: boolean = true;
   sortedData: BoardGame[] | undefined
   pageSize = 10;
@@ -88,9 +89,13 @@ export class BoardGamesUserCollectionComponent {
     console.log('functia receive' + results)
     console.log(results.length)
     if (results.length === 0) {
-      this.noResultsMessage = "This board game does not exist.";
+      //this.noResultsMessage = "This board game does not exist.";
+      // this.redirectLink = true;
+      this.noResultsMessage = "This board game does not exist. ";
+      console.log ('redirwecr' + this.redirectLink)
     } else {
       this.noResultsMessage = "We have found " + results.length + " boardgames";
+      this.redirectLink = false;
     }
   }
 
