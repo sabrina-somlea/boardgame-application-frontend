@@ -10,6 +10,7 @@ import {BoardGameSessionModel} from "../models/boardGameSession.model";
 import {Moment} from 'moment/moment';
 import * as moment from "moment";
 import {BoardGame} from "../models/boardGames.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 
@@ -90,10 +91,10 @@ export class BoardGamesSessionsListComponent {
   sessionBDate: string = '';
   boardGameName: string = '';
   winnerName: string ='';
+  showActionConfirmation: boolean = false;
+actionMessage: string ='';
 
-
-
-  constructor(private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
+  constructor(private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -133,9 +134,11 @@ export class BoardGamesSessionsListComponent {
       this.boardGamesSessionService
         .updateBoardGameSession(this.newSession)
         .subscribe((data: BoardGameSessionModel) => {
-          alert('Session updated successfully!');
+         // alert('Session updated successfully!');
           console.log(this.updateBoardGameSession)
           this.markedForUpdate = undefined;
+          this.showActionConfirmation = true;
+          this.actionMessage = "Board game session updated successfully!"
           const username = this.tokenStorageService.getUser()
           this.getBoardGamesSessionsList();
         });
@@ -200,6 +203,7 @@ export class BoardGamesSessionsListComponent {
       console.log(this.newSession.players)
       this.selectedPlayer = null;
       this.showDropdown = false;
+      this.playerAlreadySelected = false;
       console.log(this.newSession.players)
     } else {
       this.playerAlreadySelected = true;
@@ -254,8 +258,10 @@ export class BoardGamesSessionsListComponent {
       this.boardGamesSessionService
         .removeBoardGameSession(this.markedForDeletion!)
         .subscribe((data) => {
-          alert('Board Game removed successfully!');
+          //alert('Board Game removed successfully!');
           this.markedForDeletion = undefined;
+          this.showActionConfirmation = true;
+          this.actionMessage = "Board game session deleted successfully!"
           const username = this.tokenStorageService.getUser()
           this.getBoardGamesSessionsList();
           //notification
@@ -266,7 +272,9 @@ export class BoardGamesSessionsListComponent {
   cancelDelete(): void {
     this.markedForDeletion = undefined;
   }
-
+  cancelActionModal(): void {
+    this.showActionConfirmation = false;
+  }
   viewUserDetails(): void {
     this.userService.getUserInfo().subscribe(
       (user: User) => {

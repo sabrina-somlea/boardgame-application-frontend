@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {BoardGamesSessionsService} from "../services/boardGamesSessions.service";
 import {BoardGamesService} from "../services/boardGames.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-board-games-sessions',
@@ -57,7 +58,8 @@ export class BoardGamesSessionsComponent {
   showGameDeleteButton: boolean = false;
   currentUser: any;
   isFormValid = false;
-  constructor(private fb: FormBuilder,private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService) {
+  playerAlreadySelected = false;
+  constructor(private fb: FormBuilder,private userFriendsService: UserFriendsService, private userService: UsersService, private tokenStorageService: TokenStorageService, private boardGamesSessionService: BoardGamesSessionsService, private router: Router, private boardGameService: BoardGamesService, private snackBar: MatSnackBar) {
     this.userForm = this.fb.group({
       sessionDate: ['', Validators.required],
       boardGameName: ['', Validators.required],
@@ -123,9 +125,15 @@ export class BoardGamesSessionsComponent {
     this.boardGamesSessionService
       .addBoardGameSession(this.newSession)
       .subscribe((data: BoardGameSessionModel) => {
-        alert("New session added successfully!");
-        this.router.navigate(['/boardGamesSessionList']);
-      })
+        alert('Session added successfully!');
+       // this.snackBar.open('New session added successfully!', 'Close', {
+       //    duration: 3000,
+       //    verticalPosition: 'top',
+       //  });
+       //  setTimeout(() => {
+          this.router.navigate(['/boardGamesSessionList']);
+       //  }, 1000);
+      });
   }
 
   cancel(): void {
@@ -182,9 +190,11 @@ export class BoardGamesSessionsComponent {
       console.log(this.newSession.players)
       this.selectedPlayer = null;
       this.showDropdown = false;
+      this.playerAlreadySelected = false;
     }
     else{
       console.log('player already selected')
+      this.playerAlreadySelected = true;
     }
   }
 

@@ -34,6 +34,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { FriendsProfileComponent } from './user-friends/friends-profile/friends-profile.component';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { FriendsProfileComponent } from './user-friends/friends-profile/friends-
     FormsModule,
     MatSortModule,
     MatPaginatorModule,
+    MatSnackBarModule
 
   ],
   providers: [UsersService, BoardGamesService, UserFriendsService, BoardGamesSessionsService],

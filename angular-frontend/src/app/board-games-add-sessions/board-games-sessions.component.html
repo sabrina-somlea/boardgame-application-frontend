@@ -63,6 +63,9 @@
             {{ player?.firstName }} {{ player?.lastName }}
             <button class="button is-small is-danger" (click)="removePlayerFromSession(i)">Delete player</button>
           </div>
+          <div class="box" *ngIf="playerAlreadySelected">
+            Player already selected! Please choose another player.
+          </div>
         </div>
       </div>
     </div>

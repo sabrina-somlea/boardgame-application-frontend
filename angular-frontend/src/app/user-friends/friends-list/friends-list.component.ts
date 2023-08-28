@@ -20,6 +20,8 @@ export class FriendsListComponent {
   username: string='';
   searchQuery: any;
   isSearching = false;
+  actionMessage: string =''
+  showActionConfirmation: boolean = false;
   onFriendsRequests = false;
   onFriendsRequestsSent = false;
   markedForDeletion: User | undefined;
@@ -73,7 +75,9 @@ export class FriendsListComponent {
       this.userFriendsService.declineFriendRequest(this.tokenStorageService.getUser(),this.markedForDeletion.id!)
 
         .subscribe((data) => {
-          alert('Friend request deleted successfully!');
+          // alert('Friend request deleted successfully!');
+          this.showActionConfirmation = true;
+          this.actionMessage = "Friend request  deleted successfully!"
           this.markedForDeletion = undefined;
           const username = this.tokenStorageService.getUser()
           this.getFriendsList(username);
@@ -87,7 +91,9 @@ export class FriendsListComponent {
       this.userFriendsService.removeFriendRequest(this.markedForDeletion.id!, this.tokenStorageService.getUser())
 
         .subscribe((data) => {
-          alert('Friend request deleted successfully!');
+          this.showActionConfirmation = true;
+          this.actionMessage = "Friend request deleted successfully!"
+          //alert('Friend request deleted successfully!');
           this.markedForDeletion = undefined;
           const username = this.tokenStorageService.getUser()
           this.getFriendsList(username);
@@ -102,7 +108,9 @@ export class FriendsListComponent {
       console.log('a intrat in if confirmdelete')
       this.userFriendsService.deleteFriend(this.tokenStorageService.getUser(),this.markedForDeletion.id!)
         .subscribe((data) => {
-          alert('Friend  deleted successfully!');
+          //alert('Friend  deleted successfully!');
+          this.showActionConfirmation = true;
+          this.actionMessage = "Friend deleted successfully!"
           this.markedForDeletion = undefined;
           const username = this.tokenStorageService.getUser()
           this.getFriendsList(username);
@@ -139,7 +147,9 @@ export class FriendsListComponent {
       console.log('a intrat in if accept friend')
       this.userFriendsService.acceptFriendRequest(this.tokenStorageService.getUser(),this.markedForAccept.id!)
         .subscribe((data) => {
-          alert('Request accepted!');
+          //alert('Request accepted!');
+          this.showActionConfirmation = true;
+          this.actionMessage = "You are now friends!"
           this.markedForAccept = undefined;
           const username = this.tokenStorageService.getUser()
           this.getFriendsRequests(username);
@@ -154,7 +164,9 @@ export class FriendsListComponent {
     if (this.markedForFriendRequest) {
       this.userFriendsService.sendFriendRequest(this.tokenStorageService.getUser(),this.markedForFriendRequest.id!)
         .subscribe((data) => {
-          alert('Request sent!');
+         // alert('Request sent!');
+          this.showActionConfirmation = true;
+          this.actionMessage = "Friend request successfully sent!"
           this.markedForFriendRequest = undefined;
           const username = this.tokenStorageService.getUser()
           this.getFriendsRequestsSentByUsername(username);
@@ -169,5 +181,9 @@ export class FriendsListComponent {
       .subscribe((data: User[])=> { this.userFriendsRequestsSent = data});
     this.onFriendsRequestsSent = true;
     console.log(this.userFriendsRequestsSent)
+  }
+
+  cancelActionModal(): void {
+    this.showActionConfirmation = false;
   }
 }

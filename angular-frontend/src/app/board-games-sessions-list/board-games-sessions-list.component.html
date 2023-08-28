@@ -195,4 +195,27 @@
     <button class="modal-close is-large" aria-label="close" (click)="cancelDelete()"></button>
   </div>
 </div>
+
+
+<!--show delete confirmation message-->
+
+<div id="deleteConfirmation" class="modal" [ngClass]="{'is-active': showActionConfirmation}">
+  <div class="modal-background"></div>
+
+  <div class="modal-content is-4">
+    <div class="box is-4">
+      <div class="text has-text-centered">
+        <p><b>{{actionMessage}}</b></p>
+        <br>
+        <div class ="buttons is-centered">
+          <button class ="button is-link is-small" (click)="cancelActionModal()">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" (click)="cancelActionModal()"></button>
+  </div>
+</div>
+
+
 </body>

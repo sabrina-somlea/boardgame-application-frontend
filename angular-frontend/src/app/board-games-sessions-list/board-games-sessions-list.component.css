@@ -6,9 +6,9 @@
 }
 body{
   background-image: url("../../assets/registration2.jpg");
-  background-size: contain; /* Setează dimensiunea imaginii pentru a acoperi întregul element */
-  background-repeat: inherit; /* Fă să nu se repete imaginea pe orizontală sau verticală */
-  /* alte proprietăți de stilizare */
+  background-size: contain;
+  background-repeat: inherit;
+  /*  */
 }
 /*.box{*/
 /*  background-color:rgba(0,0,0,0.5)  ;*/
@@ -19,3 +19,10 @@ body{
 /*.columns{*/
 /*  margin-left: 0.75rem !important;*/
 /*}*/
+
+.my-custom-snackbar {
+  margin: 0 !important;
+  position: absolute;
+  right: 25px;
+  top: 60px;
+}
